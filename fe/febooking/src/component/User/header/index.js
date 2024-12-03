@@ -41,12 +41,12 @@ const Header = () => {
             {/*Menu Link*/}
             <div className="collapse navbar-collapse">
               <ul className="nav navbar-nav navbar-right">
-                <li><a href="#top" className="smoothScroll">Trang chủ</a></li>
-                <li><a href="#about" className="smoothScroll">Thông tin</a></li>
-                <li><a href="#team" className="smoothScroll">Bác sĩ</a></li>
+                <li><a href="/" className="smoothScroll">Trang chủ</a></li>
+           
+                <li><Link to='/doctor'>Bác sĩ </Link></li>
                 <li><a href="#news" className="smoothScroll">Tin tức</a></li>
                 <li><a href="#google-map" className="smoothScroll">Liên hệ</a></li>
-                <li className="appointment-btn"><a href="booking.html">Đặt lịch</a></li>
+                <li className="appointment-btn"><Link to='/order'>Đặt lịch</Link></li>
               </ul>
             </div>
           </div>
