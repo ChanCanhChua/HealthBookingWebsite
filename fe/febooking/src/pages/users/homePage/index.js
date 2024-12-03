@@ -1,6 +1,10 @@
 import{memo} from "react" ; 
+import Header from "../../../component/User/header";
+import Footer from "../../../component/User/footer";
 const HomePage = () => {
     return (
+<div>
+      <Header/>
         <div>
         <section id="home" className="slider" data-stellar-background-ratio="0.5">
           <div className="container">
@@ -235,6 +239,9 @@ const HomePage = () => {
           </div>
         </section>
       </div>
-    )
+    <Footer/>
+
+    </div>
+)
 }; 
 export default memo(HomePage) ; 

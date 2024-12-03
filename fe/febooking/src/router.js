@@ -2,7 +2,8 @@ import{Routes , Route} from "react-router";
 import HomePage from "./pages/users/homePage";
 import { ROUTERS } from "./utils/router";
 import LoginPage from "./pages/users/LoginPage";
-import MasterLayout from "./pages/users/theme/masterLayout"
+import DatLich from "./pages/users/DatLich"
+import ViewBacSi from "./pages/users/ViewBacSi";
 const renderUserRouter = () => {
     const userRouters = [
         {
@@ -13,12 +14,21 @@ const renderUserRouter = () => {
             path : ROUTERS.USER.LOGIN , 
             component : <LoginPage/>
         },
+        {
+            path : ROUTERS.USER.ORDER , 
+            component : <DatLich/>
+        },
+        {
+            path : ROUTERS.USER.ViewBacSi , 
+            component : <ViewBacSi/>
+        },
+
         
     ]
 
     return (
-        <MasterLayout>
-
+        
+<>
         <Routes>
         {
             userRouters.map((item, key) => (
@@ -27,7 +37,8 @@ const renderUserRouter = () => {
         }
 
         </Routes>
-        </MasterLayout>
+      
+</>
     )
 }
 
