@@ -5,7 +5,7 @@ import LoginPage from "./pages/users/LoginPage";
 import RegisterPage from "./pages/users/RegisterPage";
 import DatLich from "./pages/users/DatLich";
 import ViewBacSi from "./pages/users/ViewBacSi";
-
+import DoctorPage from "./pages/users/DoctorPage";
 import AdminLoginPage from "./pages/admin/login";
 import AdminHomePage from "./pages/admin/homeadmin";
 import QuanLyDoctor from "./component/Admin/Doctor/QuanLyDoctor";
@@ -20,11 +20,14 @@ const App = () => {
         { path: "/doctor", element: <ViewBacSi/> },
         { path: "/register", element: <RegisterPage/> },
         { path: "/order", element: <DatLich/> },
+        { path : "/doctorpage", element: <DoctorPage/> },
         
 
         { path: "/admin/login", element: <AdminLoginPage/> },
         { path: "/admin/home-page", element: <AdminHomePage/> },
         { path : "/admin/home-page/doctor-manager", element: <QuanLyDoctor/> },
+
+
     ]
 
     return (
