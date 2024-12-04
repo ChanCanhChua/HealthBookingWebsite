@@ -1,95 +1,85 @@
 import {memo} from 'react' ; 
 import Header from '../../../component/User/header';
 import Footer from '../../../component/User/footer';
-
+import { IoHomeSharp } from "react-icons/io5"
+import { UserOutlined } from "@ant-design/icons"
+import { Avatar, Button, Col, Row } from "antd"
+import { useEffect, useState } from "react"
+import { showAllDoctor } from "../../../services/apidoctor"
+import { useNavigate } from "react-router-dom"
 const ViewBacSi = () => {
+  const [dataAllDoctor, setDataAllDoctor] = useState([])
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+      showListDoctor()
+  }, [])
+
+  const showListDoctor = async () => {
+
+      let query = ''
+      const res = await showAllDoctor(query)
+      console.log("res all doctor: ", res);
+      if(res && res.data) {
+          setDataAllDoctor(res.data)
+      }
+  }
+
+  const handleRedirectDoctor = (item) => {
+      navigate(`/doctorpage?id=${item}`)
+  }
     return(
-        <div>
-            <Header/>
- {/* TEAM */}
- <section id="team" data-stellar-background-ratio={1}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6 col-sm-6">
-                <div className="about-info">
-                  <h2 className="wow fadeInUp" data-wow-delay="0.1s">Đội ngũ bác sĩ</h2>
-                </div>
-              </div>
-              <div className="clearfix" />
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                  <img src="images/bsphungvanviet.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKII.Phùng Văn Việt</h3>
-                    <p>Phó chủ nhiệm khoa Gây mê hồi sức</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" />010-020-0120</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">general@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-linkedin-square" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                  <img src="images/bsdomanhhieu.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKI.Đỗ Mạnh Hiếu</h3>
-                    <p>Phó chủ nhiệm Khoa bỏng-Vi phẫu tạo hình</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" /> 010-070-0170</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">pregnancy@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-facebook-square" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-flickr" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                  <img src="images/bsthanhonganh.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKII.Thân Hồng Anh</h3>
-                    <p>Chủ nhiệm khoa Tim mạch khớp nội tiết</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" /> 010-040-0140</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">cardio@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-twitter" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <Footer/>
-        </div>
+      <>
+      <Header />
+      <Row>
+          <Col span={18} className="col-body">
+              <Row>
+                  <Col span={24}>
+                      <p className="txt-title"><IoHomeSharp /> / Bác sĩ nổi bật</p>
+                      {/* <Divider/> */}
+                      {/* <hr style={{border: "1px solid rgb(243, 243, 243)"}} /> */}
+                  </Col>
+                  <Col span={24}>
+                      <p className="title-lichhen">Bác sĩ nổi bật
+                      </p>
+                  </Col>   
+
+                  {dataAllDoctor?.length > 0 ? (
+                      dataAllDoctor.map((item, index) => (
+                          <Col key={index} span={24} style={{ padding: "10px 15px 0", cursor: "pointer" }} onClick={() => handleRedirectDoctor(item._id)}>
+                              <Row>
+                                  <Col span={3}>
+                                      <Avatar  
+                                      style={{border: "1px solid green"}}
+                                      src={`${"http://localhost:3001"}/uploads/${item?.image}`} 
+                                      shape="square" 
+                                      size={120} 
+                                      icon={<UserOutlined />} />
+                                  </Col>
+                                  <Col span={21} className="box-title-doctor">
+                                      <span className="txt-Title-doctor-noi-bat">
+                                          {item ? item.chucVuId.map(item => item?.name).join(', ') : ''} - &nbsp;
+                                          <span style={{color: "navy"}}>{item?.lastName} {item?.firstName}</span>
+                                      </span> <br />
+                                      <span className="title-nho">
+                                          {item ? item.chuyenKhoaId.map(item => item?.name).join(', ') : ''}
+                                      </span>
+                                  </Col>
+                              </Row>
+                              <hr style={{ border: "1px solid rgb(243, 243, 243)" }} />
+                          </Col>
+                      ))
+                  ) : (
+                      <Col span={24} style={{ textAlign: "center", padding: "20px" }}>
+                          <p style={{ color: "gray", fontSize: "18px" }}>Chưa có bác sĩ nào.</p>
+                      </Col>
+                  )}                    
+                  
+              </Row>
+          </Col>
+      </Row>
+      <Footer/>
+      </>
     )
 };
 export default memo(ViewBacSi) ; 

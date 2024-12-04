@@ -10,7 +10,7 @@
 // });
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import accountReducer from '../redux/account/accountSlice';
+import accountReducer from './account/accountSlice';
 
 import {
     persistStore,

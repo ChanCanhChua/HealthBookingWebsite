@@ -1,7 +1,56 @@
 import{memo} from "react" ; 
 import Header from "../../../component/User/header";
 import Footer from "../../../component/User/footer";
+import HinhTronSlider from "../../../component/HinhVuong/HinhTronSlider";
+import { Carousel, Col, Divider, Row } from "antd"
+
+import { useEffect, useState } from "react";
+import {showAllDoctor } from "../../../services/apidoctor";
+import { useNavigate } from "react-router-dom";
+import LoginPage from "../LoginPage";
 const HomePage = () => {
+  const [dataDoctor, setDataDoctor] = useState(null)
+  const navigate = useNavigate()
+  useEffect(() => {
+    const fetchData = async () => {
+        await listDoctor();
+    
+    };
+
+    fetchData();
+}, [])
+const listDoctor = async () => {
+  const res = await showAllDoctor()
+  if(res && res.data){
+      setDataDoctor(res.data)
+  }
+}
+const items = [
+  {
+      key: '0',
+      src: 'https://cdn.bookingcare.vn/fo/w384/2023/11/01/140234-bac-si.png',
+      txtP: 'Bác sĩ',
+      navigate: '/doctorpage'
+  },
+  {
+      key: '1',
+      src: 'https://cdn.bookingcare.vn/fo/w384/2023/11/01/140537-chuyen-khoa.png',
+      txtP: 'Chuyên khoa',
+      navigate: '/user/chuyen-khoa-kham'
+  }
+  
+];
+
+const items_BacSiNoiBat = dataDoctor ? dataDoctor.map(doctor => ({
+  id: doctor._id, // Thêm _id vào đây
+  src: `${"http://localhost:3001"}/uploads/${doctor?.image}`, 
+  txtP: `${doctor?.chucVuId.map(chucVu => chucVu?.name).join(', ')}
+          , ${doctor?.lastName} ${doctor?.firstName}`,
+  txtB: `${doctor?.chuyenKhoaId.map(chuyenKhoa => chuyenKhoa.name).join(', ')}`
+})) : [];
+const handleRedirectDoctor = (item) => {
+  navigate(`/doctorpage?id=${item}`)
+}  
     return (
 <div>
       <Header/>
@@ -71,85 +120,47 @@ const HomePage = () => {
         </section>
         {/* TEAM */}
         <section id="team" data-stellar-background-ratio={1}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6 col-sm-6">
-                <div className="about-info">
-                  <h2 className="wow fadeInUp" data-wow-delay="0.1s">Đội ngũ bác sĩ</h2>
-                </div>
-              </div>
-              <div className="clearfix" />
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                  <img src="images/bsphungvanviet.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKII.Phùng Văn Việt</h3>
-                    <p>Phó chủ nhiệm khoa Gây mê hồi sức</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" />010-020-0120</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">general@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-linkedin-square" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                  <img src="images/bsdomanhhieu.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKI.Đỗ Mạnh Hiếu</h3>
-                    <p>Phó chủ nhiệm Khoa bỏng-Vi phẫu tạo hình</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" /> 010-070-0170</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">pregnancy@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-facebook-square" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-flickr" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-6">
-                <div className="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                  <img src="images/bsthanhonganh.jpg" className="img-responsive" alt="" />
-                  <div className="team-info">
-                    <h3>BSCKII.Thân Hồng Anh</h3>
-                    <p>Chủ nhiệm khoa Tim mạch khớp nội tiết</p>
-                    <div className="team-contact-info">
-                      <p><i className="fa fa-phone" /> 010-040-0140</p>
-                      <p><i className="fa fa-envelope-o" />
-                        <a href="#">cardio@company.com</a></p>
-                    </div>
-                    <ul className="social-icon">
-                      <li>
-                        <a href="#" className="fa fa-twitter" />
-                      </li>
-                      <li>
-                        <a href="#" className="fa fa-envelope-o" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
+              <Row    
+                className="ben-trong" 
+                style={{
+                    backgroundImage: "url('https://cdn.bookingcare.vn/fo/2023/11/01/140311-background5.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    marginBottom: "20px",
+                }}>
+                    <div style={{display: "flex", width: "100%", justifyContent: "space-between" }}>
+                        <span style={{fontWeight: "500", fontSize: "4vh", padding: "4vh 22vh"}}>Bác sĩ nổi bật</span>                    
+                        <span style={{
+                            fontWeight: "500", 
+                            fontSize: "3vh", 
+                            backgroundColor: "blue", 
+                            height: "50px", 
+                            lineHeight: "45px",
+                            borderRadius: "15px",
+                            textAlign: "center",
+                            backgroundColor: "#d0edf7",
+                            color: "rgb(45 145 179)",
+                            margin: "3vh 22vh",
+                            cursor: "pointer",
+                            padding: "3px 10px"}}
+                            onClick={() => navigate('/doctor')}
+                        >Xem thêm</span>    
+                    </div> 
+                    <div 
+                        style={{
+                            backgroundColor: "transparent", 
+                            width: "77%", height: "100%",                        
+                            position: "relative",
+                            left: "24vh",
+                            
+                        }}>
+                        <HinhTronSlider items={items_BacSiNoiBat} urlDoctor={handleRedirectDoctor} />              
+                    </div>                    
+            </Row>
+              
+          
         </section>
         {/* NEWS */}
         <section id="news" data-stellar-background-ratio="2.5">
