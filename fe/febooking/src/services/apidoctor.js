@@ -20,6 +20,10 @@ export const deleteDoctor = (_id) => {
     return axios.delete(`/doctor/delete-doctor/${_id}`)
 }
 export const showDoctorById = (id) => {
-    const URL_BACKEND = `doctor/view-doctor?id=${id}`    
+    const URL_BACKEND = `doctor/show-doctor-byId?id=${id}`    
+    return axios.get(URL_BACKEND)
+}
+export const getTimeSlotsByDoctorAndDate = (query) => {
+    const URL_BACKEND = `/shift/get-tiem-slot?$ {query}`    
     return axios.get(URL_BACKEND)
 }
