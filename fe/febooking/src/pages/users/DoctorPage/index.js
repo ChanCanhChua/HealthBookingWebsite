@@ -13,7 +13,6 @@ import moment from 'moment'
 
  
 const DoctorPage = () => {
-
     const [open, setOpen] = useState(false);
     const [placement, setPlacement] = useState('top');
     const [showDetails, setShowDetails] = useState(false);
@@ -42,34 +41,34 @@ const DoctorPage = () => {
     console.log("check id: ", id);
 
     useEffect(() => {
-        showDoctorById(id);
+        fetchADoctorById(id);
     }, [id]);
 
-    // useEffect(() => {
-    //     const fetchDoctorTimes = async () => {
+    useEffect(() => {
+        const fetchDoctorTimes = async () => {
             
-    //         const doctorId = id
-    //         const appointmentDate = selectedTimeId 
-    //         if (!appointmentDate) return; // Kiểm tra nếu appointmentDate đã được chọn
-    //         let query = `doctorId=${doctorId}&date=${appointmentDate}`
+            const doctorId = id
+            const appointmentDate = selectedTimeId 
+            if (!appointmentDate) return; // Kiểm tra nếu appointmentDate đã được chọn
+            let query = `doctorId=${doctorId}&date=${appointmentDate}`
 
-    //         const res = await getTimeSlotsByDoctorAndDate(query);
-    //         console.log("res fetch: ", res);
+            const res = await getTimeSlotsByDoctorAndDate(query);
+            console.log("res fetch: ", res);
             
-    // //         if (res && res.timeGioList) {                    
-    // //             setTimeGioList(res.timeGioList)         
-    // //         } else {
-    // //             // Xử lý lỗi nếu cần
-    // //             console.error('Error fetching time slots:', await res.json());
-    // //         }
-    // //     };
+            if (res && res.timeGioList) {                    
+                setTimeGioList(res.timeGioList)         
+            } else {
+                // Xử lý lỗi nếu cần
+                console.error('Error fetching time slots:', await res.json());
+            }
+        };
     
-    //     fetchDoctorTimes();
-    // }, [selectedTimeId]);
-    // console.log("selectedTimeId date: ",selectedTimeId);
+        fetchDoctorTimes();
+    }, [selectedTimeId]);
+    console.log("selectedTimeId date: ",selectedTimeId);
     
 
-    const fetchDoctorById = async (id) => {
+    const fetchADoctorById = async (id) => {
 
         const res = await showDoctorById(id)
         console.log("res: ", res);
@@ -143,17 +142,12 @@ const DoctorPage = () => {
                                     {dataDoctor ? dataDoctor.chucVuId.map(item => item?.name).join(', ') : ''} - &nbsp;
                                     {dataDoctor?.lastName} {dataDoctor?.firstName}
                                 </p>
-                                <p style={{fontSize: "15px", marginTop: "-20px", color: "#999999", lineHeight: "22px"}}>
-                                    
-                                    Nhiều năm kinh nghiệm trong khám và điều trị bệnh lý <br/>
-                                    Bác sĩ nhận khám cho bệnh nhân từ 16 tuổi trở lên
-                                </p>
+                             
                                 <p style={{fontSize: "15px", marginTop: "-5px",}}><FaLocationDot />
                                     <span style={{marginLeft: "5px"}}>{dataDoctor?.address}</span> &nbsp; &nbsp; - &nbsp;&nbsp;
                                     <span style={{marginLeft: "5px"}}><PhoneOutlined /> {dataDoctor?.phoneNumber}</span>
                                 </p>                                
-                                <Button type="primary" style={{marginRight: "10px", fontSize: "14px"}} icon={<LikeFilled />}>Thích 0</Button>                                
-                                <Button type="primary" style={{fontSize: "14px"}} icon={<IoIosShareAlt />}>Chia sẻ</Button>
+                                
                             </Col>
 
                             <Col md={3} sm={24} xs={24} span={3} pull={21} style={{backgroundColor: "white", textAlign: "center"}}>
