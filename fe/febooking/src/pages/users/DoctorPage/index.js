@@ -116,7 +116,7 @@ const DoctorPage = () => {
     
     
     const handleRedirectDoctor = (item, thoiGianKhamBenh, listTime) => {
-        navigate(`/page-dat-lich-kham?id=${item._id}&idGioKhamBenh=${thoiGianKhamBenh}&ngayKham=${listTime}`)
+        navigate(`/order?id=${item._id}&idGioKhamBenh=${thoiGianKhamBenh}&ngayKham=${listTime}`)
     }    
 
     return (
