@@ -28,6 +28,11 @@ export const fetchDoctorById = (id) => {
     return axios.get(URL_BACKEND)
 }
 
+export const fetchDoctorByChuyenKhoa = (idChuyenKhoa) => {
+    const URL_BACKEND = `/doctor/show-doctor-by-department?idChuyenKhoa=${idChuyenKhoa}`    
+    return axios.get(URL_BACKEND)
+}
+
 // Giờ khám
 
 export const addTimeKhamBenh = (date, time, _id) => {
@@ -54,6 +59,11 @@ export const fetchAllChuyenKhoa = (query) => {
 
 export const deleteChuyenKhoa = (_id) => {
     return axios.delete(`/department/delete-department/${_id}`)
+}
+
+export const fetchChuyenKhoaByID = (query) => {
+    const URL_BACKEND = `/department/show-one-department?id=${query}`    
+    return axios.get(URL_BACKEND)
 }
 
 export const createChuyenKhoa = (name, description, image) => {

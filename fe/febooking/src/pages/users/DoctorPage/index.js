@@ -170,7 +170,6 @@ const DoctorPage = () => {
                                         ) : (
                                             <hr style={{ width: "230px", margin: "5px"}}/>
                                         )} 
-                                        
                                     </p>
 
                                     <Drawer
@@ -238,7 +237,6 @@ const DoctorPage = () => {
                                             ))
                                         ) : (
                                             <span style={{color: "red", margin: "0 0 10px"}}>Không có thời gian khám nào. 
-                                            <br/> Chọn lịch đi cậu
                                             </span>
                                         )}                                                                                                                          
                                     </Row>

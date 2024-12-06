@@ -2,29 +2,51 @@ import{memo} from "react" ;
 import Header from "../../../component/User/header";
 import Footer from "../../../component/User/footer";
 import HinhTronSlider from "../../../component/HinhVuong/HinhTronSlider";
+import HinhVuong from "../../../component/HinhVuong/Slider";
 import { Carousel, Col, Divider, Row } from "antd"
 
 import { useEffect, useState } from "react";
-import {fetchAllDoctor} from "../../../services/apidoctor";
+import {fetchAllDoctor, fetchAllChuyenKhoa} from "../../../services/apidoctor";
 import { useNavigate } from "react-router-dom";
-import LoginPage from "../LoginPage";
+
+
 const HomePage = () => {
-  const [dataDoctor, setDataDoctor] = useState(null)
-  const navigate = useNavigate()
+  // view chuyên khoa
+  const [loadingCard, setLoadingCard] = useState(true);
+  const [dataChuyenKhoa, setDataChuyenKhoa] = useState(null)
+
+  // view bác sĩ
+  const [dataDoctor, setDataDoctor] = useState(null);
+  const navigate = useNavigate();
+
+
+
   useEffect(() => {
     const fetchData = async () => {
-        await listDoctor();
-    
+            await listChuyenKhoa();
+            await listDoctor();
     };
 
     fetchData();
 }, [])
+
+
 const listDoctor = async () => {
   const res = await fetchAllDoctor()
   if(res && res.data){
       setDataDoctor(res.data)
   }
 }
+
+const listChuyenKhoa = async () => {
+  setLoadingCard(true)
+  const res = await fetchAllChuyenKhoa()
+  if(res && res.data){
+      setDataChuyenKhoa(res.data)
+  }
+  setLoadingCard(false)
+}
+
 const items = [
   {
       key: '0',
@@ -36,10 +58,17 @@ const items = [
       key: '1',
       src: 'https://cdn.bookingcare.vn/fo/w384/2023/11/01/140537-chuyen-khoa.png',
       txtP: 'Chuyên khoa',
-      navigate: '/user/chuyen-khoa-kham'
+      navigate: '/department-page'
   }
   
 ];
+
+const items_ChuyenKhoa = dataChuyenKhoa ? dataChuyenKhoa.map(chuyenKhoa => ({
+  id: chuyenKhoa._id, // Thêm _id vào đây
+  src: `http://localhost:3001/uploads/${chuyenKhoa?.image}`, 
+  txtP: `${chuyenKhoa?.name}`,
+  txtAddress: ``
+})) : [];
 
 const items_BacSiNoiBat = dataDoctor ? dataDoctor.map(doctor => ({
   id: doctor._id, // Thêm _id vào đây
@@ -51,6 +80,11 @@ const items_BacSiNoiBat = dataDoctor ? dataDoctor.map(doctor => ({
 const handleRedirectDoctor = (item) => {
   navigate(`/doctorpage?id=${item}`)
 }  
+
+const handleRedirectChuyenKhoa = (item) => {
+  navigate(`/view-department?idChuyenKhoa=${item}`)
+}
+
     return (
 <div>
       <Header/>
@@ -120,6 +154,30 @@ const handleRedirectDoctor = (item) => {
         </section>
         {/* TEAM */}
         <section id="team" data-stellar-background-ratio={1}>
+
+        <div className="danh-cho-ban">                
+                <Row  className="ben-trong" >
+                    <div style={{display: "flex", width: "100%", justifyContent: "space-between" }}>
+                        <span style={{fontWeight: "500", fontSize: "4vh", padding: "4vh 0"}}>Chuyên khoa</span>                    
+                        <span style={{
+                            fontWeight: "500", 
+                            fontSize: "3vh", 
+                            backgroundColor: "blue", 
+                            height: "50px", 
+                            lineHeight: "45px",
+                            borderRadius: "15px",
+                            textAlign: "center",
+                            backgroundColor: "#d0edf7",
+                            color: "rgb(45 145 179)",
+                            marginTop: "10px",
+                            cursor: "pointer",
+                            padding: "3px 10px"}}
+                            onClick={() => navigate('/department-page')}
+                        >Xem thêm</span>    
+                    </div>                     
+                    <HinhVuong items={items_ChuyenKhoa} width={300} height={250} loadingCard={loadingCard} urlDoctor={handleRedirectChuyenKhoa} />                     
+                </Row>                        
+            </div>
         
               <Row    
                 className="ben-trong" 
