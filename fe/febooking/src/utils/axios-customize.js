@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from 'react';
 
-    const baseUrl = process.env.REACT_APP_VITE_BACKEND_URL || "http://localhost:3001";
+const baseUrl =  "http://localhost:3001";
 console.log("baseUrl:", baseUrl);
 
 const instance = axios.create({

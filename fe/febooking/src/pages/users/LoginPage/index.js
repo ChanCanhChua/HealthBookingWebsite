@@ -1,100 +1,189 @@
-import{memo} from "react" ; 
+import { Button, Checkbox, Col, Divider, Form, Input, message, Modal, notification, Row } from "antd";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {callLoginBenhNhan } from "../../../services/apiuser";
+import RegisterPage from "../RegisterPage";
+import { useDispatch, useSelector } from "react-redux";
+import { doLoginAction } from "../../../redux/account/accountSlice";
+import Header from "../../../component/User/header";
+
+
 const LoginPage = () => {
+    const [openModalLogin, setOpenModalLogin] = useState(false);
+
+    const [formLogin] = Form.useForm()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(false)
+    const [remember, setRemember] = useState(false); // Trạng thái của checkbox "Ghi nhớ tài khoản"
+    const [openRegisterKH, setOpenRegisterKH] = useState(false)
+    // const acc = useSelector(state => state.account.user)
+    // console.log("acc: ", acc);
+    
+
+    // Kiểm tra access_token khi component load
+    useEffect(() => {
+        const accessToken = localStorage.getItem("access_tokenBenhNhan");
+        if (accessToken) {
+            // Nếu đã có token, điều hướng đến trang 
+            navigate("/");
+            // window.location.reload();
+        }
+    }, [navigate]);
+    
+    // Khi trang load, kiểm tra xem có dữ liệu trong localStorage không
+    useEffect(() => {
+        const rememberedAccountBenhNhan = localStorage.getItem("rememberedAccountBenhNhan");
+        if (rememberedAccountBenhNhan) {
+            const account = JSON.parse(rememberedAccountBenhNhan);
+            console.log("JSON.parse(rememberedAccountBenhNhan): ",JSON.parse(rememberedAccountBenhNhan));
+            
+            formLogin.setFieldsValue({
+                email: account.email,
+                password: account.password,
+                remember: true,
+            });
+            setRemember(true);
+        }
+    }, [formLogin]);
+
+    const onFinish = async (values) => {
+        console.log("kết quả values: ", values);
+        const {email, password } = values
+
+        setIsLoading(true)
+        const res = await callLoginBenhNhan(email, password)
+        console.log("res login: ", res);
+
+        if(res.data) {
+            localStorage.setItem("access_tokenBenhNhan", res.access_token)
+            dispatch(doLoginAction(res.data))
+            console.log("dispatch(doLoginAction(res.data)): ", dispatch(doLoginAction(res.data)));
+            message.success("Đăng nhập thành công")
+
+            if (remember) {
+                // Nếu người dùng chọn "Ghi nhớ tài khoản", lưu thông tin vào localStorage
+                localStorage.setItem("rememberedAccountBenhNhan", JSON.stringify({ email, password }));
+            } else {
+                // Nếu không chọn, xóa dữ liệu đã lưu (nếu có)
+                localStorage.removeItem("rememberedAccountBenhNhan");
+            }
+
+            navigate("/")
+            formLogin.resetFields()
+            setOpenModalLogin(false)
+            // handleLoginSuccess(res.access_token);
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description:
+                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                duration: 5
+            })
+        }
+        
+        // if(res.data){
+        //     localStorage.setItem("access_token", res.access_token)
+        //     localStorage.setItem("lastName", res.data.lastName);
+        //     localStorage.setItem("firstName", res.data.firstName);
+        //     message.success("Đăng nhập thành công!")
+
+        //     if (remember) {
+        //         // Nếu người dùng chọn "Ghi nhớ tài khoản", lưu thông tin vào localStorage
+        //         localStorage.setItem("rememberedAccount", JSON.stringify({ email, password }));
+        //     } else {
+        //         // Nếu không chọn, xóa dữ liệu đã lưu (nếu có)
+        //         localStorage.removeItem("rememberedAccount");
+        //     }
+            
+        //     navigate("/")
+            
+        // } else {
+        //     notification.error({ 
+        //         message: "Đăng nhập không thành công!",
+        //         description:
+        //             res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+        //         duration: 5
+        //     })
+        // }
+        setIsLoading(false)
+    }
+
+    const handleCancel = () => {
+        setOpenModalLogin(false)
+    }
+
+
     return (
-        <div>
-        {/* LOGIN IMAGE */}
-        <svg className="login__blob" viewBox="0 0 566 840" xmlns="http://www.w3.org/2000/svg">
-          <mask id="mask0" mask-type="alpha">
-            <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
-        0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
-        591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
-        167.9   45 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
-          </mask>
-          <g mask="url(#mask0)">
-            <path d="M342.407 73.6315C388.53 56.4007 394.378 17.3643 391.538 
-        0H566V840H0C14.5385 834.991 100.266 804.436 77.2046 707.263C49.6393 
-        591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
-        167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z" />
-            {/* size: 1000 x 1200 */}
-            <image className="login__img" href="/images/login.png" />
-          </g>
-        </svg>      
-        {/* LOGIN */}
-        <div className="login container grid" id="loginAccessRegister">
-          {/* LOGIN ACCESS */}
-          <div className="login__access">
-            <h1 className="login__title">Đăng nhập</h1>
-            <div className="login__area">
-              <form method="POST" action="/home" className="login__form">
-                <div className="login__content grid">
-                  <div className="login__box">
-                    <input type="email" name="email" id="email" required placeholder=" " className="login__input" />
-                    <label htmlFor="email" className="login__label">Email</label>
-                    <i className="ri-mail-fill login__icon" />
-                  </div>
-                  <div className="login__box">
-                    <input type="password" name="password" id="password" required placeholder=" " className="login__input" />
-                    <label htmlFor="password" className="login__label">Mật khẩu</label>
-                    <i className="ri-eye-off-fill login__icon login__password" id="loginPassword" />
-                  </div>
-                </div>
-                <a href="#" className="login__forgot">Quên mật khẩu?</a>
-                <button type="submit" id="setlayout" className="login__button">Đăng nhập</button>
-              </form>
-              <div className="login__social">
-                <p className="login__social-title">Đăng nhập với</p>
-                <div className="login__social-links">
-                  <a href="#" className="login__social-link">
-                    <img src="/images/icon-google.svg" alt="image" className="login__social-img" />
-                  </a>
-                  <a href="#" className="login__social-link">
-                    <img src="/images/icon-facebook.svg" alt="image" className="login__social-img" />
-                  </a>
-                  <a href="#" className="login__social-link">
-                    <img src="/images/icon-apple.svg" alt="image" className="login__social-img" />
-                  </a>
-                </div>
-              </div>
-              <p className="login__switch">
-                Bạn không có tài khoản? 
-                <button id="loginButtonRegister">Đăng ký</button>
-              </p>
+      
+ 
+        
+        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}
+        open={openModalLogin}
+        onCancel={() => handleCancel()}
+        
+        >
+        <h2>Đăng Nhập</h2>
+        <Form layout="vertical" onFinish={onFinish} form={formLogin}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+                {
+                    required: true,
+                    message: 'Vui lòng nhập email!',
+                },
+                {
+                    type: 'email',
+                    message: 'Địa chỉ email không hợp lệ!',
+                },
+            ]}
+            >
+            <Input />
+          </Form.Item>
+  
+          <Form.Item
+            label="Mật khẩu"
+            name="password"
+            rules={[
+                {
+                    required: true,
+                    message: 'Vui lòng nhập mật khẩu!',
+                },
+            ]}
+          >
+            <Input.Password onKeyDown={(e) => {
+                                    console.log("check key: ", e.key);
+                                    if(e.key === 'Enter') formLogin.submit()
+                                }}
+            />
+          </Form.Item>
+  
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              loading={isLoading}
+              >
+              Đăng nhập
+            </Button>
+          </Form.Item>
+        </Form>
+        <Divider />
+            <div style={{ textAlign: "center" }}>
+                Chưa có tài khoản? <Link onClick={() => setOpenRegisterKH(true)}>Đăng ký tại đây</Link>
+                {/* Chưa có tài khoản? <Link to={"/user/register-benh-nhan"}>Đăng ký tại đây</Link> */}
             </div>
-          </div>
-          {/* LOGIN REGISTER */}
-          <div className="login__register">
-            <h1 className="login__title">Đăng ký tài khoản</h1>
-            <div className="login__area">
-              <form method="POST" action="/register" className="login__form">
-                <div className="login__content grid">
-                  <div className="login__group grid">
-                    <div className="login__box">
-                      <input type="text" name="surnames" id="surnames" required placeholder=" " className="login__input" />
-                      <label htmlFor="surnames" className="login__label">Họ Tên</label>
-                      <i className="ri-id-card-fill login__icon" />
-                    </div>
-                  </div>
-                  <div className="login__box">
-                    <input type="email" name="emailCreate" id="emailCreate" required placeholder=" " className="login__input" />
-                    <label htmlFor="emailCreate" className="login__label">Email</label>
-                    <i className="ri-mail-fill login__icon" />
-                  </div>
-                  <div className="login__box">
-                    <input type="password" name="passwordCreate" id="passwordCreate" required placeholder=" " className="login__input" />
-                    <label htmlFor="passwordCreate" className="login__label">Mật khẩu</label>
-                    <i className="ri-eye-off-fill login__icon login__password" id="loginPasswordCreate" />
-                  </div>
-                </div>
-                <button type="submit" className="login__button">Tạo tài khoản</button>
-              </form>
-              <p className="login__switch">
-                Đã có tài khoản? 
-                <button id="loginButtonAccess">Đăng nhập</button>
-              </p>
-            </div>
-          </div>
+
+            <RegisterPage 
+            setOpenRegisterKH={setOpenRegisterKH}
+            openRegisterKH={openRegisterKH}
+            />
+        
         </div>
-      </div>
-    )
-}; 
-export default memo(LoginPage) ; 
+            
+    );
+    
+};
+export default LoginPage

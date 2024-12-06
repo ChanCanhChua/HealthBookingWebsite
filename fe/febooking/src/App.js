@@ -1,6 +1,10 @@
 import{Routes , Route} from "react-router";
 import HomePage from "./pages/users/homePage";
 import LoginPage from "./pages/users/LoginPage";
+import RegisterPage from "./pages/users/RegisterPage";
+import DatLich from "./pages/users/DatLich";
+import ViewBacSi from "./pages/users/ViewBacSi";
+import DoctorPage from "./pages/users/DoctorPage";
 import AdminLoginPage from "./pages/admin/login";
 import AdminHomePage from "./pages/admin/homeadmin";
 import QuanLyDoctor from "./component/Admin/Doctor/QuanLyDoctor";
@@ -9,11 +13,18 @@ import QuanLyChuyenKhoa from "./component/Admin/ChuyenKhoa/QuanLyChuyenKhoa";
 import QuanLyChucVu from "./component/Admin/Chucvu/QuanLyChucVu";
 import QuanLyPhongKham from "./component/Admin/PhongKham/QuanLyPhongKham";
 
+
+
 const App = () => {
 
     const routeConfig = [
         { path: "/", element: <HomePage/> },
         { path: "/login", element: <LoginPage/> },
+        { path: "/doctor", element: <ViewBacSi/> },
+        { path: "/register", element: <RegisterPage/> },
+        { path: "/order", element: <DatLich/> },
+        { path : "/doctorpage", element: <DoctorPage/> },
+        
 
         { path: "/admin/login", element: <AdminLoginPage/> },
         { path: "/admin/home-page", element: <AdminHomePage/> },
