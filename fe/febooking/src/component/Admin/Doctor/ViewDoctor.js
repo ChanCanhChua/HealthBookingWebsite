@@ -2,7 +2,6 @@ import { Badge, Button, Col, Collapse, Descriptions, Divider, Drawer, notificati
 import moment from "moment";
 import { useState } from "react";
 import './style.scss'
-// import { xoaLichCu } from "../../../services/apiDoctor";
 
 const ViewDoctor = (props) => {
 
@@ -170,7 +169,7 @@ const ViewDoctor = (props) => {
             key: 'image',
             label: 'Hình ảnh',
             children: <img style={{ width: 150, height: 140, objectFit: 'cover', borderRadius: "15%", border: "2px solid green" }}
-            src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${dataDetailDoctor?.image}`} />,
+            src={`http://localhost:3001/uploads/${dataDetailDoctor?.image}`} />,
         },
         {
             key: 'roleId',

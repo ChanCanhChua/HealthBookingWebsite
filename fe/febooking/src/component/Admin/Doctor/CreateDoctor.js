@@ -1,10 +1,10 @@
 import { Checkbox, Col, Divider, Form, Input, InputNumber, message, Modal, notification, Radio, Row, Select, Upload } from "antd"
 import { useEffect, useState } from "react";
-// import { callCreateDoctor, callUploadDoctorImg, fetchAllChucVu, fetchAllChuyenKhoa, fetchAllPhongKham } from "../../../services/apiDoctor";
+import { callCreateDoctor, callUploadDoctorImg, fetchAllChucVu, fetchAllChuyenKhoa, fetchAllPhongKham } from "../../../services/apidoctor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-// import axios from "axios";
+import axios from "axios";
 
 
 const CreateDoctor = (props) => {
@@ -32,22 +32,22 @@ const CreateDoctor = (props) => {
     }, [])
 
     const fetchAllChucVuDoctor = async () => {
-        // let res = await fetchAllChucVu()
-        // if(res && res.data) {
-        //     setDataChucVu(res.data)
-        // }
+        let res = await fetchAllChucVu()
+        if(res && res.data) {
+            setDataChucVu(res.data)
+        }
     }
     const fetchAllPhongKhamDoctor = async () => {
-        // let res = await fetchAllPhongKham()
-        // if(res && res.data) {
-        //     setDataPhongKham(res.data)
-        // }
+        let res = await fetchAllPhongKham()
+        if(res && res.data) {
+            setDataPhongKham(res.data)
+        }
     }
     const fetchAllChuyenKhoaDoctor = async () => {
-        // let res = await fetchAllChuyenKhoa()
-        // if(res && res.data) {
-        //     setDataChuyenKhoa(res.data)
-        // }
+        let res = await fetchAllChuyenKhoa()
+        if(res && res.data) {
+            setDataChuyenKhoa(res.data)
+        }
     }
 
     const handleCreateDoctor = async (values) => {
@@ -68,22 +68,22 @@ const CreateDoctor = (props) => {
         console.log("hinhanh: ", hinhAnh);
         
         setIsSubmit(true)
-        // const res = await callCreateDoctor(email, password, firstName, lastName, address, 
-        //     phoneNumber, chucVuId, gender, hinhAnh, chuyenKhoaId, 
-        //     phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai)
-        // console.log("res create: ", res);
-        // if(res && res.data){
-        //     message.success('Tạo mới thông tin bác sĩ thành công');
-        //     form.resetFields();
-        //     setImageUrl('');
-        //     setOpenCreateDoctor(false);
-        //     await fetchListDoctor()
-        // } else {
-        //     notification.error({
-        //         message: 'Đã có lỗi xảy ra',
-        //         description: res.message
-        //     })
-        // }
+        const res = await callCreateDoctor(email, password, firstName, lastName, address, 
+            phoneNumber, chucVuId, gender, hinhAnh, chuyenKhoaId, 
+            phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai)
+        console.log("res create: ", res);
+        if(res && res.data){
+            message.success('Tạo mới thông tin bác sĩ thành công');
+            form.resetFields();
+            setImageUrl('');
+            setOpenCreateDoctor(false);
+            await fetchListDoctor()
+        } else {
+            notification.error({
+                message: 'Đã có lỗi xảy ra',
+                description: res.message
+            })
+        }
         setIsSubmit(false)
     };
 
@@ -95,25 +95,25 @@ const CreateDoctor = (props) => {
     // upload ảnh    
     const handleUploadFileImage = async ({ file, onSuccess, onError }) => {
 
-        // setLoading(true);
-        // try {
-        //     const res = await callUploadDoctorImg(file);
-        //     console.log("res upload: ", res);            
-        //     if (res) {
-        //         setImageUrl(res.url); // URL của hình ảnh từ server
-        //         onSuccess(file);
-        //         // setDataImage()
-        //         // message.success('Upload thành công');
-        //     } else {
-        //         onError('Đã có lỗi khi upload file');
-        //     }            
-        // } catch (error) {
-        //     console.error(error);
-        //     message.error('Upload thất bại');
-        //     onError(error);
-        // } finally {
-        //     setLoading(false);
-        // }
+        setLoading(true);
+        try {
+            const res = await callUploadDoctorImg(file);
+            console.log("res upload: ", res);            
+            if (res) {
+                setImageUrl(res.url); // URL của hình ảnh từ server
+                onSuccess(file);
+                // setDataImage()
+                // message.success('Upload thành công');
+            } else {
+                onError('Đã có lỗi khi upload file');
+            }            
+        } catch (error) {
+            console.error(error);
+            message.error('Upload thất bại');
+            onError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const beforeUpload = (file) => {

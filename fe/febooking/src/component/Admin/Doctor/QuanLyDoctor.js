@@ -1,9 +1,9 @@
-import { Button, Col, Pagination, Popconfirm, Row, Space, Table, Input, notification, message } from "antd"
+import { Button, Col, Pagination, Popconfirm, Row, Space, Table, notification, message } from "antd"
 import AdminLayout from "../AdminLayout"
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-// import { deleteDoctor, fetchAllDoctor } from "../../../services/apiDoctor";
+import { deleteDoctor, fetchAllDoctor } from "../../../services/apidoctor";
 import { IoAddOutline } from "react-icons/io5";
 import { FaFileExport } from "react-icons/fa";
 import ViewDoctor from "./ViewDoctor";
@@ -11,20 +11,8 @@ import './style.scss'
 import CreateDoctor from "./CreateDoctor";
 import UpdateDoctor from "./UpdateDoctor";
 import moment from "moment";
-const { Search } = Input;
 const { Column, ColumnGroup } = Table;
-const data = [
-    {
-      stt: '1',
-      image: 'image',
-      email: 'admin@gmail.com',
-      lastName: 'Khắc',
-      firstName: 'Tú',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    //   tags: ['nice', 'developer'],
-    },    
-  ];
+
 
 const QuanLyDoctor = (props) => {
     const [loadingTable, setLoadingTable] = useState(false)
@@ -65,33 +53,33 @@ const QuanLyDoctor = (props) => {
             query += `&address=${encodeURIComponent(address)}`;
         }
     
-        // const res = await fetchAllDoctor(query)
-        // console.log("res doctor: ", res); 
+        const res = await fetchAllDoctor(query)
+        console.log("res doctor: ", res); 
 
 
 
-        // if (res && res.data) {
-        //     setDataDoctor(res.data)
-        //     setTotalDoctors(res.totalDoctors); // Lưu tổng số bác sĩ
-        // }
+        if (res && res.data) {
+            setDataDoctor(res.data)
+            setTotalDoctors(res.totalDoctors); // Lưu tổng số bác sĩ
+        }
         setLoadingTable(false)
     }
 
     const handleDeleteDoctor = async (id) => {
 
-        // const res = await deleteDoctor(id)
-        // if(res){
-        //     notification.success({
-        //         message: "Xóa thông tin bác sĩ",
-        //         description: "Bạn đã xoá thành công"
-        //     })
-        //     await fetchListDoctor()
-        // } else {
-        //     notification.error({
-        //         message: "Xoá tài khoản user",
-        //         description: JSON.stringify(res.message)
-        //     })
-        // }
+        const res = await deleteDoctor(id)
+        if(res){
+            notification.success({
+                message: "Xóa thông tin bác sĩ",
+                description: "Bạn đã xoá thành công"
+            })
+            await fetchListDoctor()
+        } else {
+            notification.error({
+                message: "Xoá tài khoản user",
+                description: JSON.stringify(res.message)
+            })
+        }
     }
 
 
@@ -181,11 +169,11 @@ const QuanLyDoctor = (props) => {
                                 dataIndex="image"
                                 key="image"
                                 render={(text) => {
-                                    // const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/uploads/${text}`;
-                                    // console.log("Image URL:", imageUrl); // In ra URL để kiểm tra
+                                    const imageUrl = `http://localhost:3001/uploads/${text}`;
+                                    console.log("Image URL:", imageUrl); // In ra URL để kiểm tra
                                     return (
                                         <img
-                                            // src={imageUrl}
+                                            src={imageUrl}
                                             alt={`doctor ${text}`}
                                             style={{ width: 70, height: 70, objectFit: 'cover', borderRadius: "50%", border: "1px solid navy" }}                                            
                                         />
@@ -287,13 +275,13 @@ const QuanLyDoctor = (props) => {
                             }}
                         />     
 
-                        {/* <ViewDoctor 
+                        <ViewDoctor 
                         openViewDoctor={openViewDoctor}
                         setOpenViewDoctor={setOpenViewDoctor}
                         dataDetailDoctor={dataDetailDoctor}
                         setDataDetailDoctor={setDataDetailDoctor}
                         fetchListDoctor={fetchListDoctor}
-                        />        */}
+                        />       
 
                         <CreateDoctor
                             openCreateDoctor={openCreateDoctor}
