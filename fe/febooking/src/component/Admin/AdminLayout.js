@@ -17,12 +17,11 @@ const AdminLayout = ({ children, pageTitle, placeholder,
 
     return (
         <Navbar className="bg-body-tertiary">
-            <Container>
+            <Container style={{marginLeft: 0}}>
 
-                <div style={{ height: 250, 
-                    // textAlign: 'center', 
-                    // borderBottom: "1px solid #ebebeb", 
+                <div style={{ height: 250,
                     backgroundColor: "#baf3d6",
+                    width: 1675,
                     marginTop: 0, padding: 10, 
                 }}>
                     <MenuNav />
@@ -37,7 +36,7 @@ const AdminLayout = ({ children, pageTitle, placeholder,
                         setAddressPK={setAddressPK || (() => {})}
                         setTenCK={setTenCK || (() => {})}
                         placeholder={placeholder}
-                    /> {/* Truyền nội dung vào BodyAdmin */}
+                    /> 
                 </div>
             </Container>
         </Navbar>

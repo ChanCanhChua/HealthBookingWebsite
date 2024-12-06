@@ -2,7 +2,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Checkbox, Col, Divider, Form, Input, InputNumber, message, Modal, notification, Radio, Row, Select, Upload } from "antd";
 import { useEffect, useRef, useState } from "react";
-// import { callUploadDoctorImg, fetchAllChucVu, fetchAllChuyenKhoa, fetchAllPhongKham, updateDoctor } from "../../../services/apiDoctor";
+import { callUploadDoctorImg, fetchAllChucVu, fetchAllChuyenKhoa, fetchAllPhongKham, updateDoctor } from "../../../services/apidoctor";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 
@@ -47,7 +47,7 @@ const UpdateDoctor = (props) => {
             // Tạo danh sách file cho Upload
             if (dataUpdateDoctor.image) {
 
-                console.log(`ảnh: ${import.meta.env.VITE_BACKEND_URL}/api/doctor/upload/${dataUpdateDoctor.image}`);
+                console.log(`ảnh: http://localhost:3001/uploads/${dataUpdateDoctor.image}`);
                 
                 
                 setFileList([
@@ -55,7 +55,7 @@ const UpdateDoctor = (props) => {
                         uid: '-1', // uid phải là một chuỗi duy nhất
                         name: dataUpdateDoctor.image, // Tên file
                         status: 'done', // Trạng thái
-                        // url: `${import.meta.env.VITE_BACKEND_URL}/uploads/${dataUpdateDoctor.image}`, // Đường dẫn đến hình ảnh
+                        url: `http://localhost:3001/uploads/${dataUpdateDoctor.image}`, // Đường dẫn đến hình ảnh
                     },
                 ]);
             }
@@ -96,22 +96,22 @@ const UpdateDoctor = (props) => {
    
 
     const fetchAllChucVuDoctor = async () => {
-        // let res = await fetchAllChucVu()
-        // if(res && res.data) {
-        //     setDataChucVu(res.data)
-        // }
+        let res = await fetchAllChucVu()
+        if(res && res.data) {
+            setDataChucVu(res.data)
+        }
     }
     const fetchAllPhongKhamDoctor = async () => {
-        // let res = await fetchAllPhongKham()
-        // if(res && res.data) {
-        //     setDataPhongKham(res.data)
-        // }
+        let res = await fetchAllPhongKham()
+        if(res && res.data) {
+            setDataPhongKham(res.data)
+        }
     }
     const fetchAllChuyenKhoaDoctor = async () => {
-        // let res = await fetchAllChuyenKhoa()
-        // if(res && res.data) {
-        //     setDataChuyenKhoa(res.data)
-        // }
+        let res = await fetchAllChuyenKhoa()
+        if(res && res.data) {
+            setDataChuyenKhoa(res.data)
+        }
     }
 
     // upload ảnh    
@@ -119,10 +119,10 @@ const UpdateDoctor = (props) => {
 
         setLoading(true);
         try {
-            // const res = await callUploadDoctorImg(file);
-            // console.log("res upload: ", res);            
-            // if (res) {
-            //     setImageUrl(res.url); // URL của hình ảnh từ server
+            const res = await callUploadDoctorImg(file);
+            console.log("res upload: ", res);            
+            if (res) {
+                setImageUrl(res.url); // URL của hình ảnh từ server
 
             
                 // // Thêm file mới vào fileList
@@ -136,20 +136,20 @@ const UpdateDoctor = (props) => {
                 //     },
                 // ]);
                 // Cập nhật fileList với file mới 
-            //     setFileList([ // Đặt lại fileList chỉ chứa file mới
-            //         {
-            //             uid: file.uid,
-            //             name: file.name,
-            //             status: 'done',
-            //             url: res.url, // URL của hình ảnh từ server
-            //         },
-            //     ]);
-            //     onSuccess(file);
+                setFileList([ // Đặt lại fileList chỉ chứa file mới
+                    {
+                        uid: file.uid,
+                        name: file.name,
+                        status: 'done',
+                        url: res.url, // URL của hình ảnh từ server
+                    },
+                ]);
+                onSuccess(file);
             //     // setDataImage()
-            //     message.success('Upload thành công');
-            // } else {
-            //     onError('Đã có lỗi khi upload file');
-            // }            
+                message.success('Upload thành công');
+            } else {
+                onError('Đã có lỗi khi upload file');
+            }            
         } catch (error) {
             console.error(error);
             message.error('Upload thất bại');
@@ -184,40 +184,41 @@ const UpdateDoctor = (props) => {
 
     const handleUpdateDoctor = async (values) => {
 
-        // const { _id, email, password, firstName, lastName, address, phoneNumber, 
-        //     chucVuId, gender, image, chuyenKhoaId, phongKhamId, roleId, mota, thoiGianKhamId, giaKhamVN, giaKhamNuocNgoai, } = values
+        const { _id, email, password, firstName, lastName, address, phoneNumber, 
+            chucVuId, gender, image, chuyenKhoaId, phongKhamId, roleId, mota, thoiGianKhamId, giaKhamVN, giaKhamNuocNgoai, } = values
 
-        //     console.log("mota: ", mota);
+            console.log("mota: ", mota);
             
-        // if (!imageUrl) {
-        //     notification.error({
-        //         message: 'Lỗi validate',
-        //         description: 'Vui lòng upload hình ảnh'
-        //     })
-        //     return;
-        // }
+        if (!imageUrl) {
+            notification.error({
+                message: 'Lỗi validate',
+                description: 'Vui lòng upload hình ảnh'
+            })
+            return;
+        }
 
-        // const hinhAnh = imageUrl.split('/').pop(); // Lấy tên file từ URL
-        // console.log("hinhanh: ", hinhAnh);
-        // console.log("_id: ", _id);
+        const hinhAnh = imageUrl.split('/').pop(); // Lấy tên file từ URL
+        console.log("hinhanh: ", hinhAnh);
+        console.log("_id: ", _id);
         
-        // setIsSubmit(true)
-        // const res = await updateDoctor( _id, email, firstName, lastName, address, phoneNumber, 
-        // chucVuId, gender, hinhAnh, chuyenKhoaId, phongKhamId, roleId, mota, giaKhamVN, giaKhamNuocNgoai)
+        setIsSubmit(true)
+        const res = await updateDoctor( _id, email, firstName, lastName, address, phoneNumber, 
+        chucVuId, gender, hinhAnh, chuyenKhoaId, phongKhamId, roleId, mota, giaKhamVN, giaKhamNuocNgoai)
 
-        // if(res){
-        //     message.success(res.message);
-        //     handleCancel()
-        //     setImageUrl('')
-        //     await fetchListDoctor()
-        // } else {
-        //     notification.error({
-        //         message: 'Đã có lỗi xảy ra',
-        //         description: res.message
-        //     })
-        // }
+            console.log("res info: ", res);
+        if(res){
+            message.success(res.message);
+            handleCancel()
+            setImageUrl('')
+            await fetchListDoctor()
+        } else {
+            notification.error({
+                message: 'Đã có lỗi xảy ra',
+                description: res.message
+            })
+        }
         
-        // setIsSubmit(false)
+        setIsSubmit(false)
     }
 
     const handleCancel = () => {

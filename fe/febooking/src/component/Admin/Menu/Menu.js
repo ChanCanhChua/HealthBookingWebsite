@@ -44,13 +44,13 @@ const MenuNav = (prop) => {
             icon: <FaUserDoctor />,
             children: [
                 {
-                    key: '/admin/quan-ly-doctor',
-                    label: <Link style={{fontSize: "17px"}} to="doctor-manager">Thông tin bác sĩ</Link>,
+                    key: '/admin/doctor-manager',
+                    label: <Link style={{fontSize: "17px"}} to="/admin/doctor-manager">Thông tin bác sĩ</Link>,
                     icon: <FaCircleInfo />
                 },
                 {
-                    key: '/admin/ke-hoach-doctor',
-                    label: <Link style={{fontSize: "17px"}} to="">Kế hoạch khám bệnh của bác sĩ</Link>,
+                    key: '/admin/ke-hoach',
+                    label: <Link style={{fontSize: "17px"}} to="/admin/ke-hoach">Kế hoạch khám bệnh của bác sĩ</Link>,
                     icon: <IoIosPaperPlane />
                 },                
             ],
@@ -61,18 +61,18 @@ const MenuNav = (prop) => {
             icon: <MdOutlineMeetingRoom size={18} /> ,
             children: [
                 {
-                    key: '/admin/quan-ly-phong-kham',
-                    label: <Link style={{fontSize: "17px"}} to="">Phòng khám</Link>,
+                    key: '/admin/phong-kham',
+                    label: <Link style={{fontSize: "17px"}} to="/admin/phong-kham">Phòng khám</Link>,
                     icon: <MdOutlineRoom size={20} />
                 },
                 {
-                    key: '/admin/quan-ly-chuc-vu',
-                    label: <Link style={{fontSize: "17px"}} to="">Chức vụ</Link>,
+                    key: '/admin/chuc-vu',
+                    label: <Link style={{fontSize: "17px"}} to="/admin/chuc-vu">Chức vụ</Link>,
                     icon: <FaRankingStar size={20} />
                 }, 
                 {
-                    key: '/admin/quan-ly-chuyen-khoa',
-                    label: <Link style={{fontSize: "17px"}} to="">Chuyên khoa</Link>,
+                    key: '/admin/chuyen-khoa',
+                    label: <Link style={{fontSize: "17px"}} to="/admin/chuyen-khoa">Chuyên khoa</Link>,
                     icon: <MdOutlineLocalFireDepartment size={20} />
                 },                
             ],
