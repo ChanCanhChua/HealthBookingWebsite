@@ -129,3 +129,21 @@ export const updatePhongKham = (_id, name, address, description , image) => {
         _id, name, address, description , image
     })
 }
+// dat lich kham
+export const datLichKhamBenh = (
+    _idDoctor, _idTaiKhoan, patientName, email,
+    gender, phone, dateBenhNhan, address, lidokham, 
+    hinhThucTT, tenGioKham, ngayKhamBenh, giaKham
+) => { 
+    const data = {_idDoctor, _idTaiKhoan, patientName, email,
+        gender, phone, dateBenhNhan, address, lidokham, 
+        hinhThucTT, tenGioKham, ngayKhamBenh, giaKham
+    }
+    return axios.post('/doctor/dat-lich-kham', data) 
+}
+
+export const fetchDoctorByNgayGio = (query) => {
+    const URL_BACKEND = `/doctor/show-doctor-with-listbooking${query}`    
+    return axios.get(URL_BACKEND)
+}
+

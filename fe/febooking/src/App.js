@@ -2,7 +2,7 @@ import{Routes , Route} from "react-router";
 import HomePage from "./pages/users/homePage";
 import LoginPage from "./pages/users/LoginPage";
 import RegisterPage from "./pages/users/RegisterPage";
-import DatLich from "./pages/users/DatLich";
+import DatLichPage from "./pages/users/DatLich";
 import ViewBacSi from "./pages/users/ViewBacSi";
 import DoctorPage from "./pages/users/DoctorPage";
 import AdminLoginPage from "./pages/admin/login";
@@ -22,7 +22,7 @@ const App = () => {
         { path: "/login", element: <LoginPage/> },
         { path: "/doctor", element: <ViewBacSi/> },
         { path: "/register", element: <RegisterPage/> },
-        { path: "/order", element: <DatLich/> },
+        { path: "/order", element: <DatLichPage/> },
         { path : "/doctorpage", element: <DoctorPage/> },
         
 
