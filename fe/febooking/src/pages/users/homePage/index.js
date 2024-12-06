@@ -5,7 +5,7 @@ import HinhTronSlider from "../../../component/HinhVuong/HinhTronSlider";
 import { Carousel, Col, Divider, Row } from "antd"
 
 import { useEffect, useState } from "react";
-import {showAllDoctor } from "../../../services/apidoctor";
+import {fetchAllDoctor} from "../../../services/apidoctor";
 import { useNavigate } from "react-router-dom";
 import LoginPage from "../LoginPage";
 const HomePage = () => {
@@ -20,7 +20,7 @@ const HomePage = () => {
     fetchData();
 }, [])
 const listDoctor = async () => {
-  const res = await showAllDoctor()
+  const res = await fetchAllDoctor()
   if(res && res.data){
       setDataDoctor(res.data)
   }

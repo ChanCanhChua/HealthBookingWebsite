@@ -5,7 +5,7 @@ import { IoHomeSharp } from "react-icons/io5"
 import { UserOutlined } from "@ant-design/icons"
 import { Avatar, Button, Col, Row } from "antd"
 import { useEffect, useState } from "react"
-import { showAllDoctor } from "../../../services/apidoctor"
+import { fetchAllDoctor } from "../../../services/apidoctor"
 import { useNavigate } from "react-router-dom"
 const ViewBacSi = () => {
   const [dataAllDoctor, setDataAllDoctor] = useState([])
@@ -18,7 +18,7 @@ const ViewBacSi = () => {
   const showListDoctor = async () => {
 
       let query = ''
-      const res = await showAllDoctor(query)
+      const res = await fetchAllDoctor(query)
       console.log("res all doctor: ", res);
       if(res && res.data) {
           setDataAllDoctor(res.data)

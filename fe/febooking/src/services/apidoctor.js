@@ -23,6 +23,11 @@ export const callCreateDoctor = (email, password, firstName, lastName, address, 
     })
 }
 
+export const fetchDoctorById = (id) => {
+    const URL_BACKEND = `/doctor/show-doctor-byId?id=${id}`    
+    return axios.get(URL_BACKEND)
+}
+
 // Giờ khám
 
 export const addTimeKhamBenh = (date, time, _id) => {
@@ -36,7 +41,7 @@ export const fetchAllTime = () => {
 }
 
 export const getTimeSlotsByDoctorAndDate = (query) => {
-    const URL_BACKEND = `/shift/get-time-slots?${query}`    
+    const URL_BACKEND = `/shift/get-time-slot?${query}`    
     return axios.get(URL_BACKEND)
 }
 

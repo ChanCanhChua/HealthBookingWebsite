@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { FaChevronRight, FaRegCalendarAlt } from 'react-icons/fa'
 import { IoIosShareAlt } from 'react-icons/io'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { showDoctorById, getTimeSlotsByDoctorAndDate } from '../../../services/apidoctor'
+import { fetchDoctorById, getTimeSlotsByDoctorAndDate } from '../../../services/apidoctor'
 import moment from 'moment'
 
  
@@ -70,7 +70,7 @@ const DoctorPage = () => {
 
     const fetchADoctorById = async (id) => {
 
-        const res = await showDoctorById(id)
+        const res = await fetchDoctorById(id)
         console.log("res: ", res);
         if(res && res.data) {
             setDataDoctor(res.data)
