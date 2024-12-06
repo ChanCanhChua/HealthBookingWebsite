@@ -12,6 +12,8 @@ import KeHoachKhamBenh from "./component/Admin/KeHoachKhamBenh/KeHoachKhamBenh"
 import QuanLyChuyenKhoa from "./component/Admin/ChuyenKhoa/QuanLyChuyenKhoa";
 import QuanLyChucVu from "./component/Admin/Chucvu/QuanLyChucVu";
 import QuanLyPhongKham from "./component/Admin/PhongKham/QuanLyPhongKham";
+import ChuyenKhoa from "./pages/users/ChuyenKhoa/ChuyenKhoa";
+import ViewChuyenKhoa from "./pages/users/ChuyenKhoa/ViewChuyenKhoa";
 
 
 
@@ -24,6 +26,8 @@ const App = () => {
         { path: "/register", element: <RegisterPage/> },
         { path: "/order", element: <DatLich/> },
         { path : "/doctorpage", element: <DoctorPage/> },
+        { path: "/department-page", element: <ChuyenKhoa/> },
+        { path: "/view-department", element:  <ViewChuyenKhoa/>},
         
 
         { path: "/admin/login", element: <AdminLoginPage/> },
