@@ -14,6 +14,9 @@ const Header = () => {
   const dispatch = useDispatch()
   console.log("isAuthenticated: ", isAuthenticated);
   const navigate = useNavigate();
+  const handleRedirectLichHen = (item) => {
+    navigate(`/lichhen?idKhachHang=${item}`)
+}
   const handleLogout = async () => {
     try {
         const res = await callLogoutBenhNhan();
@@ -34,7 +37,7 @@ const Header = () => {
         <Menu.Item key="1" onClick={() => navigate("/profile")}>
             Tài khoản của tôi
         </Menu.Item>
-        <Menu.Item key="2" onClick={() => navigate("/appointments")}>
+        <Menu.Item key="2" onClick={() => handleRedirectLichHen(acc._id)}>
             Lịch hẹn
         </Menu.Item>
         <Menu.Divider />

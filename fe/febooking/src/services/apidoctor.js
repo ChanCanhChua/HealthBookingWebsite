@@ -149,11 +149,16 @@ export const datLichKhamBenh = (
         gender, phone, dateBenhNhan, address, lidokham, 
         hinhThucTT, tenGioKham, ngayKhamBenh, giaKham
     }
-    return axios.post('/doctor/dat-lich-kham', data) 
+    return axios.post('/booking/dat-lich-kham', data) 
 }
 
 export const fetchDoctorByNgayGio = (query) => {
     const URL_BACKEND = `/doctor/show-doctor-with-listbooking${query}`    
     return axios.get(URL_BACKEND)
 }
+export const fetchLichKham = (idKhachHang) => {
+    const URL_BACKEND = `booking/show-booking?idKhachHang=${idKhachHang}`    
+    return axios.get(URL_BACKEND)
+}
+
 

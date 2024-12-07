@@ -33,33 +33,33 @@ const DatLichPage = () =>{
   const [tongtien, setTongTien] = useState(0)
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const [form] = Form.useForm()
-
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isAuthenticated = useSelector(state => state.account.isAuthenticated)
   const acc = useSelector(s => s.account.user)
-
+  
   console.log("doctorId: ", doctorId);
   console.log("idGioKhamBenh: ", idGioKhamBenh);
   console.log("ngayKham: ", ngayKham);
-
+  
   useEffect(() => {
-    const fetchInfoDoctor = async () => {
-        if (doctorId && idGioKhamBenh && ngayKham) {
-            // const res = await fetchDoctorByNgayGio(doctorId, idGioKhamBenh, ngayKham);
-            const res = await fetchDoctorByNgayGio(location.search);
-            console.log("res:", res);                
-            if (res && res.infoDoctor) {
-                setInfoDoctorr(res.infoDoctor);
-                setTenGio(res.tenGio);
-                setNgayKhamBenh(res.ngayKham);
-            }
-        }                  
-    }
-    fetchInfoDoctor();
-}, [doctorId, idGioKhamBenh, ngayKham])
-
-
+      const fetchInfoDoctor = async () => {
+          if (doctorId && idGioKhamBenh && ngayKham) {
+              // const res = await fetchDoctorByNgayGio(doctorId, idGioKhamBenh, ngayKham);
+              const res = await fetchDoctorByNgayGio(location.search);
+              console.log("res:", res);                
+              if (res && res.infoDoctor) {
+                  setInfoDoctorr(res.infoDoctor);
+                  setTenGio(res.tenGio);
+                  setNgayKhamBenh(res.ngayKham);
+                }
+            }                  
+        }
+        fetchInfoDoctor();
+    }, [doctorId, idGioKhamBenh, ngayKham])
+    
+    
 console.log("infoDoctorr: ", infoDoctorr);
 console.log("tenGio: ", tenGio);
 console.log("ngayKhamBenh: ", ngayKhamBenh);
@@ -138,10 +138,7 @@ const idKH = acc?._id
 useEffect(() => {
   if (infoDoctorr) {
       form.setFieldsValue({
-          // thongTinDoctor: `${infoDoctorr.chucVuId.map(item => item?.name).join(', ')} - ${infoDoctorr.lastName} ${infoDoctorr.firstName}`,
-          // noiKham: `${infoDoctorr?.phongKhamId.name}`,
-          // diaChiKham: `${infoDoctorr?.phongKhamId.address}`,
-          // avtDoctor: `${infoDoctorr?.image}`,
+       
           tenGioKham: `${tenGio?.tenGio}`,
           ngayKhamBenh: `${formatDateDatLich(ngayKhamBenh)}`,
           _idTaiKhoan: `${idKH}`,
@@ -221,10 +218,7 @@ return (
                             {/* the input an luu cac gia tri de truyen len server */}
                             <Row>
                                 <Form.Item name="_idTaiKhoan" hidden> <Input /> </Form.Item>
-                                {/* <Form.Item name="thongTinDoctor" hidden> <Input /> </Form.Item>
-                                <Form.Item name="noiKham" hidden> <Input /> </Form.Item>
-                                <Form.Item name="diaChiKham" hidden> <Input /> </Form.Item>
-                                <Form.Item name="avtDoctor" hidden> <Input /> </Form.Item> */}
+                            
                                 <Form.Item name="tenGioKham" hidden> <Input /> </Form.Item>
                                 <Form.Item name="ngayKhamBenh" hidden> <Input /> </Form.Item>
                                 <Form.Item name="_idDoctor" hidden> <Input /> </Form.Item>
@@ -249,12 +243,7 @@ return (
                                                                 <span style={{ color: "red" }}>{formatCurrency(infoDoctorr?.giaKhamVN)}</span>
                                                             </Radio>
                                                         </Col>
-                                                        <Col span={11} md={11} xs={24} sm={24} className={`giaKhamdiv ${value === infoDoctorr?.giaKhamNuocNgoai ? 'active1' : ''}`}>
-                                                            <Radio value={infoDoctorr?.giaKhamNuocNgoai} onClick={() => setTongTien(infoDoctorr?.giaKhamNuocNgoai)}>
-                                                                Giá Khám Người Nước Ngoài <br />
-                                                                <span style={{ color: "red" }}>{formatCurrency(infoDoctorr?.giaKhamNuocNgoai)}</span>
-                                                            </Radio>
-                                                        </Col>
+                                                      
                                                     </Row>
                                                 </Radio.Group>
                                             </Form.Item>
@@ -430,7 +419,7 @@ return (
                                             >
                                                 <Radio.Group onChange={onChange} value={true}>
                                                     <Radio style={{fontSize: "16px"}} value={true}>Thanh toán sau tại cơ sở y tế</Radio>
-                                                    <Radio style={{fontSize: "16px"}} value={false}>Thanh toán Online (đang phát triển)</Radio>
+                                                   
                                                 </Radio.Group>
                                             </Form.Item>
                                         </Col>
@@ -510,10 +499,10 @@ return (
                                         </Col>
                                     </Row>
 
-                                    <LoginPage
+                                    {/* <LoginPage
                                         openModalLogin={openModalLogin}
                                         setOpenModalLogin={setOpenModalLogin}
-                                    />
+                                    /> */}
                                 </Col>
                             </Row>                    
                         </Col>
