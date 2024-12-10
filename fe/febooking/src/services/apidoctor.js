@@ -161,4 +161,7 @@ export const fetchLichKham = (idKhachHang) => {
     return axios.get(URL_BACKEND)
 }
 
-
+// lịch hẹn
+export const fetchOrderById = (id) => {
+    return axios.get(`/order/show-by-iddoctor?id=${id}`);
+}

@@ -15,12 +15,14 @@ import QuanLyPhongKham from "./component/Admin/PhongKham/QuanLyPhongKham";
 import ChuyenKhoa from "./pages/users/ChuyenKhoa/ChuyenKhoa";
 import ViewChuyenKhoa from "./pages/users/ChuyenKhoa/ViewChuyenKhoa";
 import LichHen from "./pages/users/LichHen";
+import LichKham from "./pages/doctor/Lichkham";
 
 
 
 const App = () => {
 
     const routeConfig = [
+        // bệnh nhân
         { path: "/", element: <HomePage/> },
         { path: "/login", element: <LoginPage/> },
         { path: "/doctor", element: <ViewBacSi/> },
@@ -31,7 +33,10 @@ const App = () => {
         { path: "/view-department", element:  <ViewChuyenKhoa/>},
         { path: "/lichhen", element:  <LichHen/>},
         
+        // bác sĩ
+        { path: "/doctor/lich-kham", element: <LichKham/> },
 
+        // admin
         { path: "/admin/login", element: <AdminLoginPage/> },
         { path: "/admin/home-page", element: <AdminHomePage/> },
         { path: "/admin/doctor-manager", element: <QuanLyDoctor/> },
