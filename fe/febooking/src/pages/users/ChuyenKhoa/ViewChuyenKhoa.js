@@ -7,7 +7,7 @@ import { DownOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 import { FaLocationDot } from "react-icons/fa6"
-import { FaRegCalendarAlt, FaRegHandPointRight, FaRegHandPointUp } from "react-icons/fa"
+import { FaRegCalendarAlt} from "react-icons/fa"
 import { fetchChuyenKhoaByID, fetchDoctorByChuyenKhoa, getTimeSlotsByDoctorAndDate } from "../../../services/apidoctor"
 import moment from 'moment'
 
@@ -171,7 +171,6 @@ const ViewChuyenKhoa = () => {
                             },                                                   
                             ]}
                         />
-                        
                         
                         {dataDoctorByChuyenKhoa?.length > 0 ? (
                             console.log("Có data"),
