@@ -295,7 +295,7 @@ const QuanLyDoctor = (props) => {
                             setOpenUpdateDoctor={setOpenUpdateDoctor}
                             fetchListDoctor={fetchListDoctor}
                         />                     
-                        </Col>
+                    </Col>
                 </Row>
                 
             </AdminLayout>

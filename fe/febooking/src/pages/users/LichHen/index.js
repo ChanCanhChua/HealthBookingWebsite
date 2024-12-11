@@ -1,6 +1,6 @@
 import Header from "../../../component/User/header";
 import Footer from "../../../component/User/footer";
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router"
 import { useEffect, useState } from "react"
 import './lichhen.scss'
 import { IoHomeSharp } from "react-icons/io5"

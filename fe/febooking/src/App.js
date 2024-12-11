@@ -15,7 +15,9 @@ import QuanLyPhongKham from "./component/Admin/PhongKham/QuanLyPhongKham";
 import ChuyenKhoa from "./pages/users/ChuyenKhoa/ChuyenKhoa";
 import ViewChuyenKhoa from "./pages/users/ChuyenKhoa/ViewChuyenKhoa";
 import LichHen from "./pages/users/LichHen";
-import LichKham from "./pages/doctor/Lichkham";
+import LichKham from "./pages/doctor/LichHen/Lichkham";
+import Profile from "./pages/users/Profile/Profile";
+import Dangki from "./pages/doctor/Dangkilichkham/Dangki";
 
 
 
@@ -32,9 +34,11 @@ const App = () => {
         { path: "/department-page", element: <ChuyenKhoa/> },
         { path: "/view-department", element:  <ViewChuyenKhoa/>},
         { path: "/lichhen", element:  <LichHen/>},
+        { path: "/profile", element: <Profile/> },
         
         // bác sĩ
         { path: "/doctor/lich-kham", element: <LichKham/> },
+        { path: "/doctor/them-lich", element:  <Dangki/>},
 
         // admin
         { path: "/admin/login", element: <AdminLoginPage/> },
