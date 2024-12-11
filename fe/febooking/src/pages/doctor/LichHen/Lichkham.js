@@ -1,12 +1,12 @@
-import Footer from "../../component/User/footer";
-import HeaderViewDoctor from '../../component/User/header';
+import Footer from "../../../component/User/footer";
+import HeaderViewDoctor from '../../../component/User/header';
 import { Avatar, Button, Col, Row } from "antd";
 import { PhoneOutlined, UserOutlined, EyeOutlined } from '@ant-design/icons';
 import { FaLocationDot } from 'react-icons/fa6';
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoHomeSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { fetchOrderById, fetchDoctorById } from '../../services/apidoctor';
+import { fetchOrderById, fetchDoctorById } from '../../../services/apidoctor';
 import moment from "moment";
 import './css.scss';
 import ViewOrder from "./ViewOrder";
@@ -92,9 +92,9 @@ const LichKham = () => {
             </Col>
         </Row>
         <Row >
-            <Col span={18} className='view-body-xem-lich-ck'>
-                <Row>
-                    <Col span={18} className="col-body" style={{backgroundColor: "rgb(247, 246, 246)"   }}>
+            <Col span={18} className='col-body' style={{}}>
+                <Row style={{}}>
+                    <Col span={18} className="col-body" style={{backgroundColor: "rgb(247, 246, 246)"}}>
                         <p style={{
                             color: "gray", fontSize: "16px", fontWeight: "500", padding: "10px 0"
                         }}>
@@ -145,7 +145,7 @@ const LichKham = () => {
                                                 </Row>
                                             </Col>
 
-                                            <Col span={11} style={{ borderLeft: "2px solid #f4f4f4"}}>
+                                            <Col span={4} style={{ borderLeft: "2px solid #f4f4f4"}}>
                                                 <EyeOutlined 
                                                 className="txt-bacsi"
                                                 style={{color: "green", fontWeight: "bold", cursor: "pointer"}}
@@ -154,6 +154,9 @@ const LichKham = () => {
                                                         setDataDetailOrder(value)
                                                     }}
                                                 />
+                                                <Button className="button" style={{marginLeft: 10, backgroundColor: "#baf3d6"}}>
+                                                    Checkin
+                                                </Button>
                                             </Col>
                                         </Row>
                                     </Col>

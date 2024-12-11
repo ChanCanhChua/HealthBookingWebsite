@@ -8,15 +8,6 @@ export const callLoginBenhNhan = (email, password) => {
     return axios.post(URL_BACKEND, data)
 }
 
-// export const callRegister = (email, password, firstName, lastName, address, phone, gender) => {
-//     const URL_BACKEND = '/api/users/register-admin'
-//     const data = {
-//         email, password, firstName, lastName, address, phone, gender
-//     }
-//     return axios.post(URL_BACKEND, data)
-// }
-
-
 export const callRegisterBenhNhan = (email, password, firstName, lastName, address, phone, gender) => {
     const URL_BACKEND = 'patient/register-patient'
     const data = {
@@ -25,12 +16,23 @@ export const callRegisterBenhNhan = (email, password, firstName, lastName, addre
     return axios.post(URL_BACKEND, data)
 }
 
-// export const callLogout = () => {
-//     const URL_BACKEND = '/api/users/logout-admin'    
-//     return axios.post(URL_BACKEND)
-// }
-
 export const callLogoutBenhNhan = () => {
     const URL_BACKEND = 'patient/logout-patient'    
     return axios.post(URL_BACKEND)
+}
+
+export const getInformationPatient = (id) => {
+    return axios.get(`patient/infor/${id}`);
+}
+
+export const updatePatient = (_id, email, firstName, lastName, address, phoneNumber) => {
+    return axios.put('/patient/update', {
+        _id, email, firstName, lastName, address, phoneNumber
+    })
+}
+
+export const changePassword = (_id, password, passwordchange) => {
+    return axios.patch('/patient/change-pasword', {
+        _id, password, passwordchange
+    })
 }
