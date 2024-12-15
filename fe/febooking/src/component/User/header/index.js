@@ -5,15 +5,14 @@ import ReactDOM from 'react-dom'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { callLogoutBenhNhan } from '../../../services/apiuser'
-import { doLogoutAction } from '../../../redux/account/accountSlice'
+import { doLogoutActionPatient } from '../../../redux/account/accountSlice'
 import { LuLogIn } from 'react-icons/lu'
 import { SearchOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons'
 const Header = () => {
-const isAuthenticated = useSelector(state => state.account.isAuthenticated)
-const acc = useSelector(state => state.account.user)
-const dispatch = useDispatch()
-console.log("isAuthenticated: ", isAuthenticated);
-console.log("role: ", acc.roleId)
+const isAuthenticated = useSelector(state => state.account.isAuthenticated);
+const acc = useSelector(state => state.account.user);
+const dispatch = useDispatch();
+const RoleId = localStorage.getItem('role');
 const navigate = useNavigate();
 const handleRedirectLichHen = (item) => {
   navigate(`/lichhen?idKhachHang=${item}`)
@@ -23,14 +22,22 @@ const handleRedirectProfile = (item) => {
   navigate(`/profile`)
 }
 
+const handleDoctor = () => {
+  if(RoleId === "66df1d6fdcb551b86e4f703b" || !RoleId){
+    navigate('/doctor/login')
+  }else{
+    message.error("Bạn cần đăng nhập bằng tài khoản bác sĩ để truy cập trang này!")
+  }
+}
+
 const handleLogout = async () => {
   try {
       const res = await callLogoutBenhNhan();
       localStorage.removeItem('access_tokenBenhNhan');
-
+      localStorage.removeItem('role');
       if (res) {
           message.success("Đăng xuất thành công!");
-          dispatch(doLogoutAction())
+          dispatch(doLogoutActionPatient())
           navigate("/");
       }
   } catch (error) {
@@ -102,11 +109,11 @@ const menu = (
           {/*Menu Link*/}
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="/" className="smoothScroll">Trang chủ</a></li>
+              <li><a href="/" className="smoothScroll">Trang Chủ</a></li>
           
               <li><Link to='/doctor'>Bác sĩ </Link></li>
-              <li><a href="#news" className="smoothScroll">Tin tức</a></li>
-              <li><a href="#google-map" className="smoothScroll">Liên hệ</a></li>
+              <li><a href="/department-page" className="smoothScroll">Chuyên Khoa</a></li>
+              <li><a onClick={handleDoctor} className="smoothScroll">Dành Cho Bác Sĩ</a></li> 
               
             </ul>
           </div>

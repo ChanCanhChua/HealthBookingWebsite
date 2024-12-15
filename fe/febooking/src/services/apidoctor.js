@@ -1,5 +1,17 @@
 import axios from "../utils/axios-customize"
 
+// Đăng nhập
+
+export const callLogin = (email, password) => {
+    const URL_BACKEND = "/doctor/login-doctor";    
+    return axios.post(URL_BACKEND, {email, password})
+}
+
+export const callLogout = () => {
+    const URL_BACKEND = '/doctor/logout_doctor'    
+    return axios.post(URL_BACKEND)
+}
+
 // Bác sĩ
 
 export const fetchAllDoctor = (query) => {
@@ -164,4 +176,8 @@ export const fetchLichKham = (idKhachHang) => {
 // lịch hẹn
 export const fetchOrderById = (id) => {
     return axios.get(`/order/show-by-iddoctor?id=${id}`);
+}
+
+export const checkin = (_id) => {
+    return axios.patch(`booking/checkin/${_id}`)
 }

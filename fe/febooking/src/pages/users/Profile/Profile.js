@@ -1,7 +1,8 @@
-import { Avatar, Button, Col, Row } from "antd";
+import { Avatar, Button, Col, Row, Upload, message } from "antd";
 import Footer from "../../../component/User/footer";
 import HeaderViewDoctor from '../../../component/User/header';
-import { getInformationPatient } from "../../../services/apiuser";
+import { getInformationPatient, changeImage } from "../../../services/apiuser";
+import { callUploadDoctorImg } from "../../../services/apidoctor";
 import { useEffect, useState } from "react"
 ;import { MdEmail, MdLocationOn } from "react-icons/md";
 import { IoHomeSharp } from "react-icons/io5"
@@ -12,7 +13,7 @@ import ChangePassword from "./ChangePassword";
 
 const Profile = () => {
     const acc = useSelector(state => state.account.user);
-    // console.log("id: ", acc._id);
+    console.log("id: ", acc._id);
     const [dataProfile, setDataProfile] = useState([])
     const [gender, setGender] = useState("Nam");
     const [openUpdatePatient, setOpenUpdatePatient] = useState(false);
@@ -21,8 +22,7 @@ const Profile = () => {
     const [dataChangePassWord, setDataChangePassWord] = useState(null);
     console.log("open update?: ", openUpdatePatient)
     useEffect(() => {
-        
-        fetchInformation(acc._id)
+    fetchInformation(acc._id)
     }, [acc._id]);
     console.log(dataProfile);
 
@@ -35,6 +35,24 @@ const Profile = () => {
         if(!dataProfile.gender){
             setGender("Nữ");
         }
+    };
+
+    const handleUploadFileImage = async ({ file, onSuccess, onError }) => {
+            const res = await callUploadDoctorImg(file);
+            console.log("res upload: ", res);  
+            if (res) {
+                const resimg = await changeImage(acc._id, res.name)
+                if(!resimg){
+                    fetchInformation(acc._id)
+                    message.success('Upload thành công');
+                }else{
+                    onError('Đã có lỗi khi sửa thông ti người dùng');
+                }
+                onSuccess("Đã đổi ảnh đại diện thành công");
+            } 
+            else {
+                onError('Đã có lỗi khi upload file');
+            }  
     };
 
     return(
@@ -50,15 +68,18 @@ const Profile = () => {
                 <Row span={10}>
                     <Col span={4} >
                         <Avatar
-                            src={`${ "http://localhost:3001"}/uploads/0001.png`}
+                            src= {dataProfile.image? (`http://localhost:3001/uploads/${dataProfile.image}`) : ("http://localhost:3001/uploads/0001.pn")}
                             style={{ border: "1px solid blue", marginLeft: 20 }}
                             size={90}
                         />
-                        <Button 
-                        className="button"
-                        style={{marginTop: 10, backgroundColor: "#baf3d6"}}
-                        onClick>Đổi ảnh đại diện
-                        </Button>
+                        <Upload
+                        listType="none"
+                        customRequest={handleUploadFileImage}>
+                            <Button 
+                            className="button"
+                            style={{marginTop: 10, backgroundColor: "#baf3d6"}}
+                            >Đổi ảnh đại diện</Button>
+                        </Upload>
                     </Col>
 
                     <Col span={5}>
@@ -74,7 +95,7 @@ const Profile = () => {
                         </p>
                     </Col>
 
-                    <Col span={2}>
+                    <Col span={4}>
                         <p style={{fontSize: 20, marginTop:40}}>
                             <MdLocationOn/> {dataProfile?.address}
                         </p>

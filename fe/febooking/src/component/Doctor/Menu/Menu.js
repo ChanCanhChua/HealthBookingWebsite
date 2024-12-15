@@ -1,15 +1,17 @@
 import { HomeOutlined, HomeTwoTone, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { callLogout } from '../../../services/apiadmin';
-import { FaCircleInfo, FaRankingStar, FaUserDoctor } from 'react-icons/fa6';
-import { IoIosPaperPlane } from 'react-icons/io';
-import { MdOutlineLocalFireDepartment, MdOutlineMeetingRoom, MdOutlineRoom } from 'react-icons/md';
+import { callLogout } from '../../../services/apidoctor';
+import { FaUserDoctor } from 'react-icons/fa6';
+import { doLogoutActionDoctor } from '../../../redux/account/accountSlice';
+import { MdOutlineMeetingRoom } from 'react-icons/md';
+import { useDispatch} from 'react-redux'
 
 
 const MenuNav = (prop) => {
     const [theme, setTheme] = useState('light');
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -17,10 +19,10 @@ const MenuNav = (prop) => {
             const res = await callLogout();
             localStorage.removeItem('access_token');
             localStorage.removeItem('role');
-
             if (res) {
                 message.success("Đăng xuất thành công!");
-                navigate("/admin/login");
+                dispatch(doLogoutActionDoctor())
+                navigate("/");
             }
         } catch (error) {
             console.error('Có lỗi xảy ra khi đăng xuất', error);
@@ -30,53 +32,19 @@ const MenuNav = (prop) => {
     
     const items = [
         {
-            key: 'logo-web',
-            label: <p style={{fontWeight: "500", fontSize: "18px"}}>HealthBookingWebsite</p>,   
-            style: { pointerEvents: "none", userSelect: "none" }     
-        },
-        {
-            key: '/admin/home-page-admin',
-            label: <Link style={{fontSize: "17px"}} to="/admin/home-page">Trang chủ</Link>,
+            key: '/doctor/home-page',
+            label: <Link style={{fontSize: "17px"}} to="/doctor/home-page">Trang chủ</Link>,
             icon: <HomeOutlined />,    
         },
         {
-            key: 'doctor',
-            label: <label style={{fontSize: "17px"}}>Quản lý bác sĩ</label>,
+            key: '/doctor/them-lich',
+            label: <Link style={{fontSize: "17px"}} to="/doctor/them-lich">Thêm lịch khám</Link>,
             icon: <FaUserDoctor />,
-            children: [
-                {
-                    key: '/admin/doctor-manager',
-                    label: <Link style={{fontSize: "17px"}} to="/admin/doctor-manager">Thông tin bác sĩ</Link>,
-                    icon: <FaCircleInfo />
-                },
-                {
-                    key: '/admin/ke-hoach',
-                    label: <Link style={{fontSize: "17px"}} to="/admin/ke-hoach">Kế hoạch khám bệnh của bác sĩ</Link>,
-                    icon: <IoIosPaperPlane />
-                },                
-            ],
         },
         {
-            key: 'pk',
-            label: <label style={{fontSize: "17px"}}>Quản lý Y Tế</label>,
+            key: '/doctor/lich-kham',
+            label: <Link style={{fontSize: "17px"}} to="/doctor/lich-kham">Xem danh sách lịch hẹn</Link>,
             icon: <MdOutlineMeetingRoom size={18} /> ,
-            children: [
-                {
-                    key: '/admin/phong-kham',
-                    label: <Link style={{fontSize: "17px"}} to="/admin/phong-kham">Phòng khám</Link>,
-                    icon: <MdOutlineRoom size={20} />
-                },
-                {
-                    key: '/admin/chuc-vu',
-                    label: <Link style={{fontSize: "17px"}} to="/admin/chuc-vu">Chức vụ</Link>,
-                    icon: <FaRankingStar size={20} />
-                }, 
-                {
-                    key: '/admin/chuyen-khoa',
-                    label: <Link style={{fontSize: "17px"}} to="/admin/chuyen-khoa">Chuyên khoa</Link>,
-                    icon: <MdOutlineLocalFireDepartment size={20} />
-                },                
-            ],
         },
         {
             key: 'acc-web',
@@ -115,11 +83,10 @@ const MenuNav = (prop) => {
             // height: 1000,
             height: 'calc(100vh - 64px)', // Chiều cao menu bằng chiều cao viewport trừ chiều cao tiêu đề
             borderRadius: "20px", 
-            marginLeft: "30px",
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", // Thêm viền mờ
             backdropFilter: "blur(10px)", // Thêm hiệu ứng mờ
             position: "fixed", // Dán menu ở vị trí cố định
-            top: '30px', // Đặt menu ngay dưới tiêu đề
+            top: '127px', // Đặt menu ngay dưới tiêu đề
             
         }}
         defaultOpenKeys={['sub1']}

@@ -1,9 +1,7 @@
 import MenuNav from "./Menu/Menu";
 import BodyAdmin from "./Bodyadmin/Bodyadmin";
 import { Container, Navbar } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-
+import { useDispatch} from "react-redux";
 
 const AdminLayout = ({ children, pageTitle, placeholder,
                 setFirstName, setLastName, setAddress, 

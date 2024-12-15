@@ -36,3 +36,7 @@ export const changePassword = (_id, password, passwordchange) => {
         _id, password, passwordchange
     })
 }
+
+export const changeImage = (_id, image) => {
+    return axios.patch('/patient/change-avata', {_id, image})
+}

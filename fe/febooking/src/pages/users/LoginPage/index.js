@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {callLoginBenhNhan } from "../../../services/apiuser";
 import RegisterPage from "../RegisterPage";
 import { useDispatch, useSelector } from "react-redux";
-import { doLoginAction } from "../../../redux/account/accountSlice";
-import Header from "../../../component/User/header";
+import { doLoginActionPatient } from "../../../redux/account/accountSlice";
 
 
 const LoginPage = () => {
@@ -17,6 +16,7 @@ const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [remember, setRemember] = useState(false); // Trạng thái của checkbox "Ghi nhớ tài khoản"
     const [openRegisterKH, setOpenRegisterKH] = useState(false)
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     // const acc = useSelector(state => state.account.user)
     // console.log("acc: ", acc);
     
@@ -24,7 +24,7 @@ const LoginPage = () => {
     // Kiểm tra access_token khi component load
     useEffect(() => {
         const accessToken = localStorage.getItem("access_tokenBenhNhan");
-        if (accessToken) {
+        if (accessToken && isAuthenticated) {
             // Nếu đã có token, điều hướng đến trang 
             navigate("/");
             // window.location.reload();
@@ -56,11 +56,11 @@ const LoginPage = () => {
         console.log("res login: ", res);
 
         if(res.data) {
-            localStorage.setItem("access_tokenBenhNhan", res.access_token)
-            dispatch(doLoginAction(res.data))
-            console.log("dispatch(doLoginAction(res.data)): ", dispatch(doLoginAction(res.data)));
-            message.success("Đăng nhập thành công")
-
+            localStorage.setItem("access_tokenBenhNhan", res.access_token);
+            localStorage.setItem("role", res.data.roleId);
+            dispatch(doLoginActionPatient(res.data));
+            console.log("dispatch(doLoginAction(res.data)): ", dispatch(doLoginActionPatient(res.data)));
+            message.success("Đăng nhập thành công");
             if (remember) {
                 // Nếu người dùng chọn "Ghi nhớ tài khoản", lưu thông tin vào localStorage
                 localStorage.setItem("rememberedAccountBenhNhan", JSON.stringify({ email, password }));

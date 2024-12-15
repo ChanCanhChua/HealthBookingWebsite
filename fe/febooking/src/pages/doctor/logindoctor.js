@@ -2,24 +2,27 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Divider, Form, Input, message, notification, Row } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { callLogin } from "../../services/apiadmin";
+import { useDispatch } from "react-redux";
+import { callLogin } from "../../services/apidoctor";
+import { doLoginActionDoctor } from "../../redux/account/accountSlice";
 
-const Login = () => {
+const LoginDoctor = () => {
 
     const [formLogin] = Form.useForm()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [remember, setRemember] = useState(false);
 
     // Kiểm tra access_token khi component load
     useEffect(() => {
-        const accessToken = localStorage.getItem("access_token");
+        const accessToken = localStorage.getItem("access_tokenDoctor");
         if (accessToken) {
             // Nếu đã có token, điều hướng đến trang admin
-            navigate("/admin/home-page");
+            navigate("/doctor/home-page");
         }
     }, [navigate]);
-    
+
     // Khi trang load, kiểm tra xem có dữ liệu trong localStorage không
     useEffect(() => {
         const rememberedAccount = localStorage.getItem("rememberedAccount");
@@ -43,11 +46,12 @@ const Login = () => {
         console.log("res login: ", res);
         
         if(res.data){
-            localStorage.setItem("access_token", res.access_token)
+            localStorage.setItem("access_tokenDoctor", res.access_token)
+            dispatch(doLoginActionDoctor(res.data))
             localStorage.setItem("lastName", res.data.lastName);
             localStorage.setItem("firstName", res.data.firstName);
             localStorage.setItem("role", res.data.roleId);
-            message.success("Đăng nhập thành công!")
+            message.success("Đăng nhập thành công!");
 
             if (remember) {
                 // Nếu người dùng chọn "Ghi nhớ tài khoản", lưu thông tin vào localStorage
@@ -57,7 +61,7 @@ const Login = () => {
                 localStorage.removeItem("rememberedAccount");
             }
             
-            navigate("/admin/home-page")
+            navigate("/doctor/home-page")
             
         } else {
             notification.error({ 
@@ -69,7 +73,7 @@ const Login = () => {
         }
         setIsLoading(false)
     }
-    
+
     return (
         <Row justify="center" style={{ marginTop: "100px" }}>
                 <Col xs={24} md={16} lg={8}>
@@ -79,7 +83,7 @@ const Login = () => {
                             border: "1px solid #ccc",
                             borderRadius: "5px"
                     }}>
-                        <legend>Đăng Nhập Admin</legend>
+                        <legend>Đăng Nhập Bác sĩ</legend>
                         <Form
                             form={formLogin}
                             layout="vertical"
@@ -163,4 +167,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default LoginDoctor;
