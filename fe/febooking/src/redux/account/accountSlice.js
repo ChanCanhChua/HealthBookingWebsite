@@ -15,7 +15,10 @@ export const accountSlide = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-        doLoginAction: (state, action) => {   
+
+        // Bệnh nhân
+
+        doLoginActionPatient: (state, action) => {   
             console.log("action: ", action);
             console.log("action.payload: ", action.payload);
                      
@@ -27,12 +30,12 @@ export const accountSlide = createSlice({
             localStorage.setItem('isAuthenticated', 'true');
             localStorage.setItem('user', JSON.stringify(action.payload));
         },
-        doGetAccountAction: (state, action) => {
+        doGetAccountActionPatient: (state, action) => {
             state.isAuthenticated = true;
             state.isLoading = false;
             state.user = action.payload.user
         },
-        doLogoutAction: (state, action) => {
+        doLogoutActionPatient: (state, action) => {
             localStorage.removeItem('access_tokenBenhNhan');
             localStorage.removeItem('isAuthenticated');
             // localStorage.setItem('isAuthenticated', 'false');
@@ -60,6 +63,48 @@ export const accountSlide = createSlice({
             }));
         },
 
+        // Bác sĩ
+
+        doLoginActionDoctor: (state, action) => {   
+            console.log("action: ", action);
+            console.log("action.payload: ", action.payload);
+                     
+            state.isAuthenticated = true;
+            state.isLoading = false;
+            state.doctor = action.payload
+
+            // Lưu thông tin vào localStorage
+            localStorage.setItem('isAuthenticated', 'true');
+            localStorage.setItem('doctor', JSON.stringify(action.payload));
+        },
+
+        doLogoutActionDoctor: (state, action) => {
+            localStorage.removeItem('access_tokenDoctor');
+            localStorage.removeItem('isAuthenticated');
+            // localStorage.setItem('isAuthenticated', 'false');
+            state.isAuthenticated = false;
+            state.doctor = {
+                email: "",
+                phone: "",
+                firstName: "",
+                lastName: "",
+                address: "",
+                role: "",
+                image: "",
+                id: ""
+            }
+            // Lưu thông tin vào localStorage
+            localStorage.setItem('doctor', JSON.stringify({
+                email: "",
+                phone: "",
+                firstName: "",
+                lastName: "",
+                address: "",
+                role: "",
+                image: "",
+                id: ""
+            }));
+        },
 
     },    
     extraReducers: (builder) => {
@@ -67,7 +112,7 @@ export const accountSlide = createSlice({
     },
 });
 
-export const { doLoginAction, doGetAccountAction, doLogoutAction } = accountSlide.actions;
+export const { doLoginActionPatient, doGetAccountActionPatient, doLogoutActionPatient, doLoginActionDoctor, doLogoutActionDoctor } = accountSlide.actions;
 
 
 export default accountSlide.reducer;
