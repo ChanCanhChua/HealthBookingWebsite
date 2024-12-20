@@ -7,16 +7,14 @@ import { IoHomeSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { fetchOrderById, fetchDoctorById, checkin } from '../../../services/apidoctor';
 import moment from "moment";
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import './css.scss';
 import ViewOrder from "./ViewOrder";
 
 const LichKham = () => {
 
     const [dataDoctor, setDataDoctor] = useState();    
-    const [dataAllShift, setDataAllShift] = useState([])
     const [dataorder, setDataorder] = useState();
-    const dispatch = useDispatch();
     const [visibleCount, setVisibleCount] = useState(5); // Số lượng lịch hiển thị ban đầu
     const [isExpanded, setIsExpanded] = useState(false); // Trạng thái hiển thị tất cả lịch
 
@@ -29,15 +27,15 @@ const LichKham = () => {
     if(Doctor){
         console.log("Storedoctor: ", Doctor)
         doctor = JSON.parse(Doctor)
-        // console.log("tên: ", doctor.firstName)
-        // console.log("id: ", doctor._id)
-        // console.log("role: ", doctor.roleId)
+        console.log("tên: ", doctor.firstName)
+        console.log("id: ", doctor._id)
+        console.log("role: ", doctor.roleId)
     }
 
     useEffect(() => {
         fetchADoctorById(doctor._id);
         fetchOrderOfThisDoctor(doctor._id);
-    }, [Doctor]);
+    }, [doctor._id]);
 
     const fetchADoctorById = async (id) => {
         const res = await fetchDoctorById(id)
@@ -70,7 +68,8 @@ const LichKham = () => {
 
     const handleCheckin = async (id) => {
 
-        const res = await checkin(id)
+        const Role = localStorage.getItem('role');
+        const res = await checkin(id, Role)
         if(res && res.data){
             notification.success({
                 message: "Checkin",
@@ -182,7 +181,7 @@ const LichKham = () => {
                                             setDataDetailOrder(value)
                                         }}
                                     />
-                                    {value?.checkin==true? (
+                                    {value?.checkin===true? (
                                         <Button className="button" style={{marginLeft: 10, backgroundColor: "#b7f7ef"}}>
                                             Checkin
                                         </Button>

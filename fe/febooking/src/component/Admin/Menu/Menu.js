@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { callLogout } from '../../../services/apiadmin';
 import { FaCircleInfo, FaRankingStar, FaUserDoctor } from 'react-icons/fa6';
-import { IoIosPaperPlane } from 'react-icons/io';
+import { IoIosPaperPlane, IoIosListBox } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment, MdOutlineMeetingRoom, MdOutlineRoom } from 'react-icons/md';
 
 
@@ -77,6 +77,11 @@ const MenuNav = (prop) => {
                     icon: <MdOutlineLocalFireDepartment size={20} />
                 },                
             ],
+        },
+        {
+            key: '/admin/order',
+            label: <Link style={{fontSize: "17px"}} to="/admin/order">Quản lý lịch hẹn</Link>,
+            icon: <IoIosListBox />,    
         },
         {
             key: 'acc-web',

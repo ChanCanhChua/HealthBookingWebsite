@@ -1,13 +1,9 @@
-import React ,{memo , useState} from "react" ; 
-import { Col, Row, Input, Drawer, Divider, Avatar, Dropdown, message, Button ,Menu} from 'antd'
-import ReactDOM from 'react-dom'
-
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import React , {memo } from "react" ; 
+import { Dropdown, message, Button ,Menu} from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { callLogoutBenhNhan } from '../../../services/apiuser'
 import { doLogoutActionPatient } from '../../../redux/account/accountSlice'
-import { LuLogIn } from 'react-icons/lu'
-import { SearchOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons'
 const Header = () => {
 const isAuthenticated = useSelector(state => state.account.isAuthenticated);
 const acc = useSelector(state => state.account.user);

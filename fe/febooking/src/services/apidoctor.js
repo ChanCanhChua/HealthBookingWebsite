@@ -19,8 +19,9 @@ export const fetchAllDoctor = (query) => {
     return axios.get(URL_BACKEND)
 }
 
-export const deleteDoctor = (_id) => {
-    return axios.delete(`/doctor/delete-doctor/${_id}`)
+export const deleteDoctor = (_id, Role) => {
+    console.log("id:", _id, "role:", Role)
+    return axios.delete(`/doctor/delete-doctor/${_id}?role=${Role}`)
 }
 
 export const updateDoctor = (_id, email, firstName, lastName, address, phoneNumber, chucVuId, gender, image, chuyenKhoaId, phongKhamId,roleId, mota, giaKhamVN, giaKhamNuocNgoai) => {
@@ -29,8 +30,8 @@ export const updateDoctor = (_id, email, firstName, lastName, address, phoneNumb
     })
 }
 
-export const callCreateDoctor = (email, password, firstName, lastName, address, phoneNumber, chucVuId, gender, image, chuyenKhoaId, phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai) => {
-    return axios.post('/doctor/create-doctor', {
+export const callCreateDoctor = (email, password, firstName, lastName, address, phoneNumber, chucVuId, gender, image, chuyenKhoaId, phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai, Role) => {
+    return axios.post(`/doctor/create-doctor?role=${Role}`, {
         email, password, firstName, lastName, address, phoneNumber, chucVuId, gender, image, chuyenKhoaId, phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai
     })
 }
@@ -178,6 +179,15 @@ export const fetchOrderById = (id) => {
     return axios.get(`/order/show-by-iddoctor?id=${id}`);
 }
 
-export const checkin = (_id) => {
-    return axios.patch(`booking/checkin/${_id}`)
+export const fetchAllOrder = (query) => {
+    const URL_BACKEND = `/booking/show-all-booking?${query}`    
+    return axios.get(URL_BACKEND)
+}
+
+export const checkin = (_id, Role) => {
+    return axios.patch(`/booking/checkin/${_id}?role=${Role}`)
+}
+
+export const deleteOrder = (_id) => {
+    return axios.delete(`/booking/delete/${_id}`)
 }

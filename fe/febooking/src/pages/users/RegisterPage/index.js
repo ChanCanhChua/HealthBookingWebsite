@@ -1,12 +1,10 @@
 import { Button, Col, Divider, Form, Input, message, Modal, notification, Radio, Row } from "antd";
-import { useState , memo} from "react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 import { callRegisterBenhNhan } from "../../../services/apiuser";
 
 const RegisterPage = ({setOpenRegisterKH, openRegisterKH}) => {
 
     const [formRegister] = Form.useForm();
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const onFinish = async (values) => {
@@ -38,17 +36,6 @@ const RegisterPage = ({setOpenRegisterKH, openRegisterKH}) => {
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
-    };
-
-    // Hàm để tạo mật khẩu ngẫu nhiên
-    const generateRandomPassword = (length) => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
-        let password = '';
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            password += characters[randomIndex];
-        }
-        return password;
     };
 
     const handleCancel = () => {

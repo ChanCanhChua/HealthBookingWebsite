@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Input } from 'antd';
-import { useDispatch,} from 'react-redux';
 
 const { Search } = Input;
 
@@ -8,10 +7,7 @@ const { Search } = Input;
 const SearchCompenent = ({ onSearch, placeholder }) => {
         const [searchValue, setSearchValue] = useState('');
         let searchTimeout; // Định nghĩa biến bên ngoài
-    
-        
-        const dispatch = useDispatch()
-    
+
         const handleSearchChange = (value) => {
             setSearchValue(value);
             

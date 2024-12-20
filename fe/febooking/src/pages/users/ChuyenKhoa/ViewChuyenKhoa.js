@@ -84,7 +84,6 @@ const ViewChuyenKhoa = () => {
     };
 
     const listTime = dataDoctor?.thoiGianKham.map(item => item.date) || [];
-    const listHour = dataDoctor?.thoiGianKham.thoiGianId.map(item => item.date) || [];
 
     const styleTime = (index) => ({
         cursor: "pointer",

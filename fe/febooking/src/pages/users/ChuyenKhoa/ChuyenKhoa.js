@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Row } from "antd"
+import { Avatar, Col, Row } from "antd"
 import Footer from "../../../component/User/footer"
 import HeaderViewDoctor from '../../../component/User/header'
 import './css.scss'

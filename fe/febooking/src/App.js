@@ -18,6 +18,7 @@ import KeHoachKhamBenh from "./component/Admin/KeHoachKhamBenh/KeHoachKhamBenh"
 import QuanLyChuyenKhoa from "./component/Admin/ChuyenKhoa/QuanLyChuyenKhoa";
 import QuanLyChucVu from "./component/Admin/Chucvu/QuanLyChucVu";
 import QuanLyPhongKham from "./component/Admin/PhongKham/QuanLyPhongKham";
+import QuanLyOrder from "./component/Admin/Order/Quanlyorder";
 // bác sĩ
 import LichKham from "./component/Doctor/LichHen/Lichkham";
 import Dangki from "./component/Doctor/Dangkilichkham/Dangki";
@@ -58,6 +59,7 @@ const App = () => {
         { path: "/admin/chuyen-khoa", element: <AuthenAdmin><QuanLyChuyenKhoa/></AuthenAdmin>},
         { path: "/admin/chuc-vu", element: <AuthenAdmin><QuanLyChucVu/></AuthenAdmin>},
         { path: "/admin/phong-kham", element: <AuthenAdmin><QuanLyPhongKham/></AuthenAdmin>},
+        { path: "/admin/order", element: <AuthenAdmin><QuanLyOrder/></AuthenAdmin>},
 
         // 404
         { path: "*", element: <Page404/>},

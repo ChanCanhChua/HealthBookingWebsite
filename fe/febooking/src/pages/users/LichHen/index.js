@@ -7,7 +7,7 @@ import { IoHomeSharp } from "react-icons/io5"
 import { UserOutlined } from "@ant-design/icons"
 import { MdAccessTimeFilled } from "react-icons/md"
 import { BsCalendar2Date } from "react-icons/bs"
-import { Avatar, Button, Col, Divider, Row } from "antd"
+import { Avatar, Button, Col, Row } from "antd"
 import { fetchLichKham } from "../../../services/apidoctor"
 
 

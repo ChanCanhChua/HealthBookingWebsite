@@ -1,4 +1,4 @@
-import { Button, Col, Row, Space, Table, Input, Pagination, message, notification, Popconfirm } from "antd"
+import { Button, Col, Row, Space, Table, Pagination, message, notification, Popconfirm } from "antd"
 import AdminLayout from "../AdminLayout"
 import { IoAddOutline } from "react-icons/io5"
 import { useEffect, useState } from "react"
@@ -8,7 +8,6 @@ import moment from "moment";
 import { deleteChucVu, fetchAllChucVu } from "../../../services/apidoctor";
 import CreateChucVu from "./CreateChucVu";
 import UpdateChucVu from "./UpdateChucVu";
-const { Search } = Input;
 const { Column, ColumnGroup } = Table;
 
 const QuanLyChucVu = () => {

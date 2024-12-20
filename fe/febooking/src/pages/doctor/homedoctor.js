@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import DoctorLayout from '../../component/Doctor/DoctorLayout';
 
 const HomeAdmin = () => {
