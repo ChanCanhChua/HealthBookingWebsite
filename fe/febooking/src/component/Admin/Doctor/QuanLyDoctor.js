@@ -11,17 +11,16 @@ import './style.scss'
 import CreateDoctor from "./CreateDoctor";
 import UpdateDoctor from "./UpdateDoctor";
 import moment from "moment";
-const { Column, ColumnGroup } = Table;
 
 
 const QuanLyDoctor = (props) => {
     const [loadingTable, setLoadingTable] = useState(false)
     const [dataDoctor, setDataDoctor] = useState([])
-
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [totalDoctors, setTotalDoctors] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-
+    
     const [openViewDoctor, setOpenViewDoctor] = useState(false);
     const [dataDetailDoctor, setDataDetailDoctor] = useState(null);
     const [openCreateDoctor, setOpenCreateDoctor] = useState(false);
@@ -31,7 +30,9 @@ const QuanLyDoctor = (props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [address, setAddress] = useState('');
-
+    
+    const { Column, ColumnGroup } = Table;
+    
     const navigator = useNavigate()
     
     useEffect(() => {
@@ -66,8 +67,9 @@ const QuanLyDoctor = (props) => {
     }
 
     const handleDeleteDoctor = async (id) => {
-
-        const res = await deleteDoctor(id)
+        const Role = localStorage.getItem('role');
+        // console.log("role: ", Role)
+        const res = await deleteDoctor(id, Role)
         if(res){
             notification.success({
                 message: "Xóa thông tin bác sĩ",

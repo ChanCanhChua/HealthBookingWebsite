@@ -1,10 +1,8 @@
-// import Header from "../../../component/User/header";
 import Footer from "../../../component/User/footer";
 import moment from "moment"
 import { HiOutlineMailOpen } from "react-icons/hi"
 import { IoAddCircleSharp, IoLocationSharp } from "react-icons/io5"
 import { useDispatch, useSelector } from "react-redux"
-import LoginPage from '../LoginPage';
 import { PhoneOutlined, UserOutlined } from "@ant-design/icons"
 import './styleDatLich.scss'
 import { BsFillCalendar2DateFill } from "react-icons/bs"
@@ -12,7 +10,7 @@ import { FaRegHospital } from "react-icons/fa"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { datLichKhamBenh, fetchDoctorByNgayGio } from '../../../services/apidoctor'
-import { Avatar, Button, Col, DatePicker, Divider, Form, Input, message, notification, Radio, Row } from "antd"
+import { Avatar, Button, Col, Form, Input, message, notification, Radio, Row } from "antd"
 const { TextArea } = Input;
 
 

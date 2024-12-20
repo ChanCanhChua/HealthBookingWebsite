@@ -3,7 +3,7 @@ import Header from "../../../component/User/header";
 import Footer from "../../../component/User/footer";
 import HinhTronSlider from "../../../component/HinhVuong/HinhTronSlider";
 import HinhVuong from "../../../component/HinhVuong/Slider";
-import { Carousel, Col, Divider, Row } from "antd"
+import { Row } from "antd"
 
 import { useEffect, useState } from "react";
 import {fetchAllDoctor, fetchAllChuyenKhoa} from "../../../services/apidoctor";
@@ -23,8 +23,8 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-            await listChuyenKhoa();
-            await listDoctor();
+      await listChuyenKhoa();
+      await listDoctor();
     };
 
     fetchData();
@@ -131,7 +131,6 @@ const handleRedirectChuyenKhoa = (item) => {
               <div className="col-md-6 col-sm-6">
                 <div className="about-info">
                   <h2 className="wow fadeInUp" data-wow-delay="0.6s">Chào mừng bạn đến với<br /><i className="fa fa-h-square" />ealth Booking</h2>
-                  {'{'}{'{'}user.email{'}'}{'}'}
                   <div className="wow fadeInUp" data-wow-delay="0.8s">
                     <p>Là Bệnh viện đa khoa chiến lược tuyến
                       cuối, trung tâm y học quân sự phía

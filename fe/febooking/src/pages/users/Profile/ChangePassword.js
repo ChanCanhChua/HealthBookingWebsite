@@ -1,5 +1,5 @@
 import {Form, Modal, Col, Row, Input, Divider, message, notification} from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { changePassword } from "../../../services/apiuser";
 
 const ChangePassword = (prop) => {
@@ -18,7 +18,7 @@ const ChangePassword = (prop) => {
 
         const { password, passwordNew, passwordNAgain } = values;
         const _id = dataChangePassWord._id;
-        if(passwordNew != passwordNAgain){
+        if(passwordNew !== passwordNAgain){
             notification.error({
                 message: 'Mật khẩu mới không trùng khớp',
             })

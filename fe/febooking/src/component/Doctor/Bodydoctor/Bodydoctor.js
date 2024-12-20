@@ -1,20 +1,6 @@
 import { Col, Row } from "antd"
-import { Input, Space } from 'antd';
 
-const BodyAdmin = ({ content, pageTitle,                    
-                }) => {
-
-    const onSearch = (value) => {
-        console.log("Giá trị tìm kiếm:", value); // Thêm log này
-        const [firstName, lastName, address, tenChucVu] = value.split(' ');
-    
-        // Log các giá trị đã tách ra
-        console.log("firstName:", firstName);
-        console.log("lastName:", lastName);
-        console.log("address:", address);
-        console.log("tenChucVu:", tenChucVu);
-    };
-
+const BodyAdmin = ({ content, pageTitle }) => {
     return (
         <>
             <Row>

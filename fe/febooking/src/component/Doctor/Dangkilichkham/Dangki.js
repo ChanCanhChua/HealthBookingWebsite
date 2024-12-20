@@ -34,19 +34,19 @@ const Dangki = () => {
     }, [doctor._id]);
 
     const fetchADoctorById = async (id) => {
-        // const res = await fetchDoctorById(id)
-        // // console.log("res: ", res);
-        // if(res && res.data) {
-        //     setDataDoctor(res.data)
-        // }
+        const res = await fetchDoctorById(id)
+        // console.log("res: ", res);
+        if(res && res.data) {
+            setDataDoctor(res.data)
+        }
     }
 
     const fetchAllTimes = async () => {
-        // const res = await fetchAllTime()
-        // console.log("res doctor: ", res);
-        // if (res && res.data) {
-        //     setDataTime(res.data)
-        // }
+        const res = await fetchAllTime()
+        console.log("res doctor: ", res);
+        if (res && res.data) {
+            setDataTime(res.data)
+        }
     }
 
     const handleTimeSelect = (timeId) => {

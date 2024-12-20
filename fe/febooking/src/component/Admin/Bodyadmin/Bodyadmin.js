@@ -1,7 +1,5 @@
 import { Col, Row } from "antd"
-import { Input, Space } from 'antd';
 import SearchComponent from "./SearchComponent";
-const { Search } = Input;
 
 const BodyAdmin = ({ content, pageTitle, placeholder,
                     setFirstName, setLastName, setAddress,

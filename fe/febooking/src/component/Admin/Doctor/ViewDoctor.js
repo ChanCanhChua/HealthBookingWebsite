@@ -1,4 +1,4 @@
-import { Badge, Button, Col, Collapse, Descriptions, Divider, Drawer, notification, Row } from "antd";
+import { Badge, Button, Col, Collapse, Descriptions, Divider, Drawer, Row } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import './style.scss'

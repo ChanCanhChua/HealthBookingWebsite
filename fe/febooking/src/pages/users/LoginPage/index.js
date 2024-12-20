@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Divider, Form, Input, message, Modal, notification, Row } from "antd";
+import { Button, Divider, Form, Input, message, notification } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {callLoginBenhNhan } from "../../../services/apiuser";
@@ -29,7 +29,7 @@ const LoginPage = () => {
             navigate("/");
             // window.location.reload();
         }
-    }, [navigate]);
+    }, [navigate, isAuthenticated]);
     
     // Khi trang load, kiểm tra xem có dữ liệu trong localStorage không
     useEffect(() => {

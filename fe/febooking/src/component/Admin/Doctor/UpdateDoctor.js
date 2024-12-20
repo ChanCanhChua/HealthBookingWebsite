@@ -123,18 +123,6 @@ const UpdateDoctor = (props) => {
             console.log("res upload: ", res);            
             if (res) {
                 setImageUrl(res.url); // URL của hình ảnh từ server
-
-            
-                // // Thêm file mới vào fileList
-                // setFileList(prevFileList => [
-                //     ...prevFileList,
-                //     {
-                //         uid: file.uid, // Duy trì uid
-                //         name: file.name,
-                //         status: 'done',
-                //         url: res.url, // URL của hình ảnh từ server
-                //     },
-                // ]);
                 // Cập nhật fileList với file mới 
                 setFileList([ // Đặt lại fileList chỉ chứa file mới
                     {

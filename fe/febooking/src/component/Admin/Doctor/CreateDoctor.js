@@ -4,8 +4,6 @@ import { callCreateDoctor, callUploadDoctorImg, fetchAllChucVu, fetchAllChuyenKh
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import axios from "axios";
-
 
 const CreateDoctor = (props) => {
 
@@ -68,9 +66,10 @@ const CreateDoctor = (props) => {
         console.log("hinhanh: ", hinhAnh);
         
         setIsSubmit(true)
+        const Role = localStorage.getItem('role');
         const res = await callCreateDoctor(email, password, firstName, lastName, address, 
             phoneNumber, chucVuId, gender, hinhAnh, chuyenKhoaId, 
-            phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai)
+            phongKhamId, mota, giaKhamVN, giaKhamNuocNgoai, Role)
         console.log("res create: ", res);
         if(res && res.data){
             message.success('Tạo mới thông tin bác sĩ thành công');

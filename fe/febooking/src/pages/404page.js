@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Row, Upload, message } from "antd";
+import { Button, Col, Row } from "antd";
 import { IoHomeSharp, IoWarning } from "react-icons/io5"
 import { useNavigate } from 'react-router';
 
