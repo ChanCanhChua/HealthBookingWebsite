@@ -8,7 +8,7 @@ export const callLogin = (email, password) => {
 }
 
 export const callLogout = () => {
-    const URL_BACKEND = '/doctor/logout_doctor'    
+    const URL_BACKEND = '/doctor/logout-doctor'    
     return axios.post(URL_BACKEND)
 }
 

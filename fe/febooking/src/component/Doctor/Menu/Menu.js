@@ -17,9 +17,9 @@ const MenuNav = (prop) => {
     const handleLogout = async () => {
         try {
             const res = await callLogout();
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('role');
             if (res) {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('role');
                 message.success("Đăng xuất thành công!");
                 dispatch(doLogoutActionDoctor())
                 navigate("/");

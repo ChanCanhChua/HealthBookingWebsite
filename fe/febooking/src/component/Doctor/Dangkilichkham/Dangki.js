@@ -29,8 +29,10 @@ const Dangki = () => {
     }
 
     useEffect(() => {
-        fetchADoctorById(doctor._id);
-        fetchAllTimes();
+        if(doctor._id){
+            fetchADoctorById(doctor._id);
+            fetchAllTimes();
+        }
     }, [doctor._id]);
 
     const fetchADoctorById = async (id) => {

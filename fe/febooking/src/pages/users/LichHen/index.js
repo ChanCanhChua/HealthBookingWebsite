@@ -20,7 +20,6 @@ const LichHen = () => {
 
     console.log("check idKhachHang: ", idKhachHang);
     const [dataLichHen, setDataLichHen] = useState([])
-    console.log("check dataLichHen: ", dataLichHen);
 
     useEffect(() => {
         fetchLichHenByIdKH(idKhachHang);
