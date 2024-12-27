@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, message, notification } from "antd";
+import { Button, Divider, Form, Input, message, notification, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {callLoginBenhNhan } from "../../../services/apiuser";
@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { doLoginActionPatient } from "../../../redux/account/accountSlice";
 
 
-const LoginPage = () => {
-    const [openModalLogin, setOpenModalLogin] = useState(false);
+const LoginPage = (prop) => {
+    const {openLoginUser, setOpenLoginUser} =prop;
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const [formLogin] = Form.useForm()
     const navigate = useNavigate()
@@ -22,14 +23,7 @@ const LoginPage = () => {
     
 
     // Kiểm tra access_token khi component load
-    useEffect(() => {
-        const accessToken = localStorage.getItem("access_tokenBenhNhan");
-        if (accessToken && isAuthenticated) {
-            // Nếu đã có token, điều hướng đến trang 
-            navigate("/");
-            // window.location.reload();
-        }
-    }, [navigate, isAuthenticated]);
+    
     
     // Khi trang load, kiểm tra xem có dữ liệu trong localStorage không
     useEffect(() => {
@@ -71,7 +65,7 @@ const LoginPage = () => {
 
             navigate("/")
             formLogin.resetFields()
-            setOpenModalLogin(false)
+            setOpenLoginUser(false)
             // handleLoginSuccess(res.access_token);
         } else {
             notification.error({
@@ -81,108 +75,85 @@ const LoginPage = () => {
                 duration: 5
             })
         }
-        
-        // if(res.data){
-        //     localStorage.setItem("access_token", res.access_token)
-        //     localStorage.setItem("lastName", res.data.lastName);
-        //     localStorage.setItem("firstName", res.data.firstName);
-        //     message.success("Đăng nhập thành công!")
-
-        //     if (remember) {
-        //         // Nếu người dùng chọn "Ghi nhớ tài khoản", lưu thông tin vào localStorage
-        //         localStorage.setItem("rememberedAccount", JSON.stringify({ email, password }));
-        //     } else {
-        //         // Nếu không chọn, xóa dữ liệu đã lưu (nếu có)
-        //         localStorage.removeItem("rememberedAccount");
-        //     }
-            
-        //     navigate("/")
-            
-        // } else {
-        //     notification.error({ 
-        //         message: "Đăng nhập không thành công!",
-        //         description:
-        //             res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-        //         duration: 5
-        //     })
-        // }
         setIsLoading(false)
     }
 
     const handleCancel = () => {
-        setOpenModalLogin(false)
+        setOpenLoginUser(false)
     }
 
 
     return (
-      
- 
-        
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}
-        open={openModalLogin}
-        onCancel={() => handleCancel()}
-        
+        <Modal
+            title={`Đăng nhập`}
+            style={{
+                top: 200,
+            }}
+            open={openLoginUser}
+            onCancel={() => handleCancel()}
+            width={500}
+            maskClosable={false}
+            confirmLoading={isSubmit}
+            footer= {null}
+            // loading={true}
         >
-        <h2>Đăng Nhập</h2>
-        <Form layout="vertical" onFinish={onFinish} form={formLogin}>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-                {
-                    required: true,
-                    message: 'Vui lòng nhập email!',
-                },
-                {
-                    type: 'email',
-                    message: 'Địa chỉ email không hợp lệ!',
-                },
-            ]}
-            >
-            <Input />
-          </Form.Item>
-  
-          <Form.Item
-            label="Mật khẩu"
-            name="password"
-            rules={[
-                {
-                    required: true,
-                    message: 'Vui lòng nhập mật khẩu!',
-                },
-            ]}
-          >
-            <Input.Password onKeyDown={(e) => {
-                                    console.log("check key: ", e.key);
-                                    if(e.key === 'Enter') formLogin.submit()
-                                }}
-            />
-          </Form.Item>
-  
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              loading={isLoading}
+            <Form layout="vertical" onFinish={onFinish} form={formLogin}>
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Vui lòng nhập email!',
+                    },
+                    {
+                        type: 'email',
+                        message: 'Địa chỉ email không hợp lệ!',
+                    },
+                ]}
+                >
+                <Input />
+              </Form.Item>
+      
+              <Form.Item
+                label="Mật khẩu"
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Vui lòng nhập mật khẩu!',
+                    },
+                ]}
               >
-              Đăng nhập
-            </Button>
-          </Form.Item>
-        </Form>
-        <Divider />
-            <div style={{ textAlign: "center" }}>
-                Chưa có tài khoản? <Link onClick={() => setOpenRegisterKH(true)}>Đăng ký tại đây</Link>
-                {/* Chưa có tài khoản? <Link to={"/user/register-benh-nhan"}>Đăng ký tại đây</Link> */}
-            </div>
-
-            <RegisterPage 
-            setOpenRegisterKH={setOpenRegisterKH}
-            openRegisterKH={openRegisterKH}
-            />
-        
-        </div>
-            
+                <Input.Password onKeyDown={(e) => {
+                    console.log("check key: ", e.key);
+                    if(e.key === 'Enter') formLogin.submit()
+                }}
+                />
+              </Form.Item>
+      
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  loading={isLoading}
+                  >
+                  Đăng nhập
+                </Button>
+              </Form.Item>
+            </Form>
+            <Divider />
+                <div style={{ textAlign: "center" }}>
+                    Chưa có tài khoản? <Link onClick={() => setOpenRegisterKH(true)}>Đăng ký tại đây</Link>
+                    {/* Chưa có tài khoản? <Link to={"/user/register-benh-nhan"}>Đăng ký tại đây</Link> */}
+                </div>
+    
+                <RegisterPage 
+                setOpenRegisterKH={setOpenRegisterKH}
+                openRegisterKH={openRegisterKH}
+                />
+        </Modal>
     );
     
 };

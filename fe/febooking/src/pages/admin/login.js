@@ -153,9 +153,7 @@ const Login = () => {
                             </Form.Item>
                         </Form>
                         <Divider />
-                        <div style={{ textAlign: "center" }}>
-                            Chưa có tài khoản? <Link to={"/admin/register-admin"}>Đăng ký tại đây</Link>
-                        </div>
+                        
     
                     </fieldset>
                 </Col>

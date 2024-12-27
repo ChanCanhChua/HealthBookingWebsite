@@ -35,7 +35,7 @@ const App = () => {
     const routeConfig = [
         // bệnh nhân
         { path: "/", element: <HomePage/> },
-        { path: "/login", element: <LoginPage/> },
+        // { path: "/login", element: <LoginPage/> },
         { path: "/doctor", element: <ViewBacSi/> },
         { path: "/register", element: <RegisterPage/> },
         { path: "/order", element: <DatLichPage/> },
@@ -46,7 +46,7 @@ const App = () => {
         { path: "/profile", element: <Profile/> },
         
         // bác sĩ
-        { path: "/doctor/login", element: <LoginDoctor/> },
+        // { path: "/doctor/login", element: <LoginDoctor/> },
         { path: "/doctor/home-page", element: <AuthenDoctor><HomeDoctor/></AuthenDoctor>},
         { path: "/doctor/lich-kham", element: <AuthenDoctor><LichKham/></AuthenDoctor>},
         { path: "/doctor/them-lich", element:  <AuthenDoctor><Dangki/></AuthenDoctor>},

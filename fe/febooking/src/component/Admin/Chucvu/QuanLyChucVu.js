@@ -8,7 +8,7 @@ import moment from "moment";
 import { deleteChucVu, fetchAllChucVu } from "../../../services/apidoctor";
 import CreateChucVu from "./CreateChucVu";
 import UpdateChucVu from "./UpdateChucVu";
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const QuanLyChucVu = () => {
 
@@ -24,9 +24,6 @@ const QuanLyChucVu = () => {
     const [pageSize, setPageSize] = useState(5);
     // dùng để search doctor
     const [tenChucVu, setTenChucVu] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState('');
 
     useEffect(() => {
         fetchListChucVu()

@@ -140,7 +140,6 @@ const QuanLyDoctor = (props) => {
                                 setOpenCreateDoctor(true)
                             }}
                             >Thêm bác sĩ</Button>
-                            <Button type="primary" icon={<FaFileExport size={15} />} className="custom-row">Export</Button>
                         </Space>
                     </Col>
                 </Row>

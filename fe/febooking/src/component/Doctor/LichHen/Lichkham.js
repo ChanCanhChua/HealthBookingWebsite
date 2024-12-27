@@ -33,8 +33,10 @@ const LichKham = () => {
     }
 
     useEffect(() => {
-        fetchADoctorById(doctor._id);
-        fetchOrderOfThisDoctor(doctor._id);
+        if(doctor._id){
+            fetchADoctorById(doctor._id);
+            fetchOrderOfThisDoctor(doctor._id);
+        }
     }, [doctor._id]);
 
     const fetchADoctorById = async (id) => {
@@ -136,7 +138,7 @@ const LichKham = () => {
                 .map((value) => (
                     <Col>
                         <span style={{ fontWeight: "bold", fontSize: "18px"}}>
-                            {moment(value.ngayKhamBenh).format('MM/DD/YYYY')}
+                            {value.ngayKhamBenh}
                         </span>
                         <br /><br />
                         <Col span={30} className="box-lich-kham" style={{backgroundColor: "white", width: 1000}}>
