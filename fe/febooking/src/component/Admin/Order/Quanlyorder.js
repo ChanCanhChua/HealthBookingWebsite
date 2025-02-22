@@ -1,15 +1,14 @@
-import { Button, Col, Pagination, Popconfirm, Row, Space, Table, notification, message } from "antd"
+import { Button, Col, Popconfirm, Row, Space, Table, notification, message } from "antd"
 import AdminLayout from "../AdminLayout"
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { fetchAllOrder, deleteOrder } from "../../../services/apidoctor";
 import { IoAddOutline } from "react-icons/io5";
-import { FaFileExport, FaCheckCircle, FaClock } from "react-icons/fa";
+import { FaCheckCircle, FaClock } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import moment from "moment";
 
-const QuanLyOrder = (props) => {
+const QuanLyOrder = () => {
     const [loadingTable, setLoadingTable] = useState(false);
     const [dataOrder, setDataOrder] = useState([]);
     const [totalOrder, setTotalOrder] = useState(0);
@@ -28,9 +27,15 @@ const QuanLyOrder = (props) => {
         setLoadingTable(true);
         let query = `page=${currentPage}&limit=${pageSize}`
         const res = await fetchAllOrder(query)
-        // console.log("res order: ", res); 
+        const data = res.data;
+        const listOrder = data.sort((a, b) => {
+            const dateA = moment(a.ngayKhamBenh, 'DD/MM/YYYY'); 
+            const dateB = moment(b.ngayKhamBenh, 'DD/MM/YYYY');
+            return dateA.diff(dateB);
+        });
+        // console.log("res order: ", listOrder); 
         if (res && res.data) {
-            setDataOrder(res.data)
+            setDataOrder(listOrder);
             setTotalOrder(res.totalOrder); // Lưu tổng số bác sĩ
         }
         setLoadingTable(false)
@@ -40,14 +45,14 @@ const QuanLyOrder = (props) => {
         const ngayhen = moment(ngayKhamBenh, "DD/MM/YYYY");
         const today = moment();
         if(checkin){
-            console.log("đã checkin")
+            // console.log("đã checkin")
             return <FaCheckCircle style={{color: "green"}}/>
         }else{
             if (ngayhen.isAfter(today)) {
-                console.log("chưa checkin");
+                // console.log("chưa checkin");
                 return <FaClock style={{ color: "#cfb004" }} />;
             } else {
-                console.log("đã quá hạn");
+                // console.log("đã quá hạn");
                 return <MdCancel style={{ color: "red" }} />;
             }
         }

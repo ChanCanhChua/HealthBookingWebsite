@@ -301,24 +301,10 @@ const ViewChuyenKhoa = () => {
                                                         display: "flex", justifyContent: "space-between"
                                                     }}>
                                                         <span className='span-gia-kham'>
-                                                            <p style={{ fontWeight: "500" }}>Giá khám cho người Việt</p>
-                                                            <p>Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm</p>
+                                                            <p style={{marginTop: 22}}>Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm</p>
                                                         </span>
                                                         <span style={{ lineHeight: "70px", marginRight: "5px", color: "red", fontWeight: "500" }} className='span-gia-kham'>
                                                             {formatCurrency(item?.giaKhamVN)}
-                                                        </span>
-                                                    </div>
-
-                                                    <div style={{
-                                                        backgroundColor: "#f7f7f7", border: "1px solid #d9d2d2",
-                                                        display: "flex", justifyContent: "space-between"
-                                                    }}>
-                                                        <span className='span-gia-kham'>
-                                                            <p style={{ fontWeight: "500" }}>Giá khám cho người nước ngoài</p>
-                                                            <p>Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm</p>
-                                                        </span>
-                                                        <span style={{ lineHeight: "70px", marginRight: "5px", color: "red", fontWeight: "500" }} className='span-gia-kham'>
-                                                            {formatCurrency(item?.giaKhamNuocNgoai)}
                                                         </span>
                                                     </div>
                                                     <a onClick={() => toggleDetails(item._id)} style={{ float: "right", marginTop: "5px" }}>Ẩn bảng giá</a>
@@ -326,7 +312,7 @@ const ViewChuyenKhoa = () => {
                                             ) : (
                                                 <p>
                                                     <span style={{ fontWeight: "500", color: "gray" }}>GIÁ KHÁM:</span> &nbsp;
-                                                    <span style={{ color: "red", fontWeight: "500" }}>{formatCurrency(item?.giaKhamVN)}</span> đến <span style={{ color: "red", fontWeight: "500" }}>{formatCurrency(item?.giaKhamNuocNgoai)}</span>
+                                                    <span style={{ color: "red", fontWeight: "500" }}>{formatCurrency(item?.giaKhamVN)}</span>
                                                     <a onClick={() => toggleDetails(item._id)} style={{ marginLeft: "10px" }}>Xem chi tiết</a>
                                                 </p>
                                             )}

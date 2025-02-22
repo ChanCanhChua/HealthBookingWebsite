@@ -27,7 +27,11 @@ import LoginDoctor from '../../../pages/doctor/logindoctor'
 
   const handleDoctor = () => {
     if(RoleId === "66df1d6fdcb551b86e4f703b" || !RoleId){
-      navigate('/doctor/login')
+      if(isAuthenticated){
+        navigate("/doctor/home-page")
+      }else{
+        setOpenLoginDoctor(true);
+      }
     }else{
       message.error("Bạn cần đăng nhập bằng tài khoản bác sĩ để truy cập trang này!")
     }
@@ -39,8 +43,9 @@ import LoginDoctor from '../../../pages/doctor/logindoctor'
         localStorage.removeItem('access_tokenBenhNhan');
         localStorage.removeItem('role');
         if (res) {
-            message.success("Đăng xuất thành công!");
-            dispatch(doLogoutActionPatient())
+          message.success("Đăng xuất thành công!");
+          dispatch(doLogoutActionPatient())
+          navigate('/')
         }
     } catch (error) {
         console.error('Có lỗi xảy ra khi đăng xuất', error);
@@ -78,8 +83,6 @@ import LoginDoctor from '../../../pages/doctor/logindoctor'
               <span className="email-icon"><i className="fa fa-user-o" />
               { isAuthenticated ? 
               (
-
-                
                 <Dropdown overlay={menu} trigger={['click']}>
                 <Button
                 className="button"
@@ -119,9 +122,7 @@ import LoginDoctor from '../../../pages/doctor/logindoctor'
               <li><Link to='/doctor'>Bác sĩ </Link></li>
               <li><a href="/department-page" className="smoothScroll">Chuyên Khoa</a></li>
               <li>
-                <a onClick={() => {
-                  setOpenLoginDoctor(true)
-                }}
+                <a onClick={handleDoctor}
                 className="smoothScroll"
                 >Dành Cho Bác Sĩ</a>
               </li> 

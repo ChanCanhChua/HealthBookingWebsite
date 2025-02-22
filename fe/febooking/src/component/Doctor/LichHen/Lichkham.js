@@ -27,9 +27,9 @@ const LichKham = () => {
     if(Doctor){
         console.log("Storedoctor: ", Doctor)
         doctor = JSON.parse(Doctor)
-        console.log("tên: ", doctor.firstName)
-        console.log("id: ", doctor._id)
-        console.log("role: ", doctor.roleId)
+        // console.log("tên: ", doctor.firstName)
+        // console.log("id: ", doctor._id)
+        // console.log("role: ", doctor.roleId)
     }
 
     useEffect(() => {
@@ -133,7 +133,11 @@ const LichKham = () => {
 
             {dataorder?.length > 0? (
                 dataorder
-                .sort((a, b) => new Date(a.ngayKhamBenh) - new Date(b.ngayKhamBenh))
+                .sort((a, b) => {
+                            const dateA = moment(a.ngayKhamBenh, 'DD/MM/YYYY'); 
+                            const dateB = moment(b.ngayKhamBenh, 'DD/MM/YYYY');
+                            return dateA.diff(dateB);
+                        })
                 .slice(0, isExpanded ? dataorder.ngayKhamBenh.length : visibleCount)
                 .map((value) => (
                     <Col>
